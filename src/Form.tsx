@@ -11,7 +11,36 @@ function Form() {
   
   const onSubmit = (e: any) => {
     e.preventDefault();
-    console.log(image);
+
+    const url = '/api/celeb';
+    const url2 = '/api/face';
+
+    const formData = new FormData();
+    formData.append('image', image);
+
+    const result = axios.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })    
+    .then(function (response) {
+        console.log(response);
+    })
+    .catch(function (response) {
+        console.log(response);
+    });
+
+    const result2 = axios.post(url2, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })    
+    .then(function (response) {
+        console.log(response);
+    })
+    .catch(function (response) {
+        console.log(response);
+    });
   }
 
     return (
