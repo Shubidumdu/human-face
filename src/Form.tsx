@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import { clovaFace } from './api/clova';
 
 function Form() {
 
@@ -9,38 +9,17 @@ function Form() {
     setImage(e.target.files[0]);
   }
   
-  const onSubmit = (e: any) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault();
-
-    const url = '/api/celeb';
-    const url2 = '/api/face';
 
     const formData = new FormData();
     formData.append('image', image);
 
-    const result = axios.post(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })    
-    .then(function (response) {
-        console.log(response);
-    })
-    .catch(function (response) {
-        console.log(response);
-    });
+    const celeb = await clovaFace('celeb', formData);
+    const faceInfo = await clovaFace('face', formData);
 
-    const result2 = axios.post(url2, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })    
-    .then(function (response) {
-        console.log(response);
-    })
-    .catch(function (response) {
-        console.log(response);
-    });
+    console.log(celeb);
+    console.log(faceInfo);
   }
 
     return (

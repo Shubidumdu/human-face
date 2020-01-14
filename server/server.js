@@ -15,7 +15,6 @@ const client_secret = 'F3tPDnL2Ng';
 app.use(express.static(path.join(__dirname, '..', 'public/')));
 // app.use(express.static(path.join(__dirname, '..', 'build/')));
 
-// if you need api routes add them here
 app.get("/api/getUsername", function(req, res, next){
     res.send({ username: os.userInfo().username });
 });
@@ -34,12 +33,13 @@ const upload = multer({
 app.post('/api/celeb', upload.single('image'), (req, res) => {
 
     const api_url = 'https://openapi.naver.com/v1/vision/celebrity';
-    const api_url2 = 'https://openapi.naver.com/v1/vision/face';
 
     const file_name = req.file.filename;
+    const file_path = path.resolve('../human-face/uploads/' + file_name);
+
     var _formData = {
         image:'image',
-        image: fs.createReadStream(path.resolve('../human-face/uploads/' + file_name))
+        image: fs.createReadStream(file_path)
       };
     
     var _req = request.post({url:api_url, formData: _formData,
@@ -48,6 +48,8 @@ app.post('/api/celeb', upload.single('image'), (req, res) => {
          console.log(response.headers['content-type'])
       });
 
+    fs.unlink(file_path, function() {
+    });
     console.log( request.head  );
     _req.pipe(res);
 })
@@ -57,9 +59,11 @@ app.post('/api/face', upload.single('image'), (req, res) => {
   const api_url = 'https://openapi.naver.com/v1/vision/face';
 
   const file_name = req.file.filename;
+  const file_path = path.resolve('../human-face/uploads/' + file_name);
+
   var _formData = {
       image:'image',
-      image: fs.createReadStream(path.resolve('../human-face/uploads/' + file_name))
+      image: fs.createReadStream(file_path)
     };
   
   var _req = request.post({url:api_url, formData: _formData,
@@ -69,6 +73,8 @@ app.post('/api/face', upload.single('image'), (req, res) => {
     });
 
   console.log( request.head  );
+  fs.unlink(file_path, function() {
+  });
   _req.pipe(res);
 })
 
