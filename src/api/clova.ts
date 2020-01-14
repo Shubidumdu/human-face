@@ -34,13 +34,13 @@ export interface ClovaFace {
 export interface Face {
     roi:      Roi;
     landmark: Landmark;
-    gender:   Age;
-    age:      Age;
-    emotion:  Age;
-    pose:     Age;
+    gender:   Value;
+    age:      Value;
+    emotion:  Value;
+    pose:     Value;
 }
 
-export interface Age {
+export interface Value {
     value:      string;
     confidence: number;
 }
