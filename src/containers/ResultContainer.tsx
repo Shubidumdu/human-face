@@ -2,16 +2,18 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules';
 import { resetResult } from '../modules/clova';
+import Result from '../components/Result';
 
 function ResultContainer() {
-    const [celeb, faceInfo] = useSelector((state: RootState) => [state.clova.celeb, state.clova.face]);
+    const clovaData = useSelector((state: RootState) => state.clova.data);
+
     const dispatch = useDispatch();
 
     const onReset = () => {
         dispatch(resetResult());
     }
 
-    return <></>
+    return <Result data={clovaData} onReset={onReset}/>
 }
 
 export default ResultContainer

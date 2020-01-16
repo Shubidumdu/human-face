@@ -4,7 +4,7 @@ type clovaType = 'celeb' | 'face';
 
 export interface ClovaCeleb {
     info:  Info;
-    faces: Celeb[];
+    faces: Array<Celeb>;
 }
 
 export interface Celeb {
@@ -27,8 +27,8 @@ export interface Size {
 }
 
 export interface ClovaFace {
-    info:  Info;
-    faces: Face[];
+    info:  Info | {};
+    faces: Array<Face>;
 }
 
 export interface Face {
