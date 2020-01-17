@@ -3,6 +3,8 @@ import { clovaFace } from '../api/clova';
 import { useDispatch } from 'react-redux';
 import { getResultThunk } from '../modules/clova';
 import Form from '../components/Form';
+import CropModalContainer from './CropModalContainer';
+
 
 function FormContainer () {
     const dispatch = useDispatch();
@@ -28,8 +30,22 @@ function FormContainer () {
         setImageFile('');
       }
 
+    const [isOpen, setModalOpen] = useState(false);
+
+    const openModal = (e: any) => {
+        e.preventDefault();
+        setModalOpen(true)
+    }
+
+    const closeModal = (e: any) => {
+        setModalOpen(false)
+    }
+
     return (
-        <Form imageURL={imageURL} onChange={onChange} onSubmit={onSubmit}/>
+      <>
+      <Form imageURL={imageURL} onChange={onChange} onSubmit={onSubmit} onOpen={openModal}/>
+      <CropModalContainer isOpen={isOpen} onClose={closeModal}/>
+      </>
     )
   };
 

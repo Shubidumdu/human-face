@@ -16,7 +16,7 @@ function Result({
     const {value: age, score: ageScore} = data.age;
     const {value: emotion, score: emotionScore} = data.emotion;
 
-    if(data.imageInfo.faceCount !== -1) 
+    if(data.imageInfo.faceCount !== (-1 || 0)) 
         {
             return (
                 <div className="result">
