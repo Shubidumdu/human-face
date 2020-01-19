@@ -1,23 +1,23 @@
 import React from 'react';
 
 type FormProps = {
-    imageURL: string;
-    onChange: (e: any) => void;
-    onSubmit: (e: any) => void;
+    imageUrl: string;
+    onSubmit: (e: any) => Promise<void>;
     onOpen: (e: any) => void;
 }
 
 function Form({
-  imageURL,
-    onChange,
+    imageUrl,
     onSubmit,
     onOpen
     }: FormProps) {
+
+    const src = imageUrl;
+
     return (
         <div className="form">
-          <img alt='faceImg' src={imageURL} />
+          <img alt='faceImg' src={src} />
           <form>
-            <input onChange={onChange} type="file" />
             <button onClick={onOpen}>모달!</button>
             <button onClick={onSubmit}>완료!</button>
           </form>

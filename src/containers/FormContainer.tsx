@@ -9,25 +9,20 @@ import CropModalContainer from './CropModalContainer';
 function FormContainer () {
     const dispatch = useDispatch();
 
-    const [imageFile, setImageFile] = useState('');
-    const [imageURL, setImageURL] = useState('');
-
-    const onChange = (e: any) => {
-        setImageFile(e.target.files[0]);
-        setImageURL(URL.createObjectURL(e.target.files[0]));
-    }
+    const [imageBlob, setImageBlob] = useState<Blob>();
+    const [imageUrl, setImageUrl] = useState('');
 
     const onSubmit = async (e: any) => {
         e.preventDefault();
     
         const formData = new FormData();
-        formData.append('image', imageFile);
+        formData.append('image', imageBlob!);
 
         const celeb = await clovaFace('celeb', formData);
         const faceInfo = await clovaFace('face', formData);
 
         dispatch(getResultThunk(celeb, faceInfo, formData));
-        setImageFile('');
+        setImageBlob(undefined);
       }
 
     const [isOpen, setModalOpen] = useState(false);
@@ -38,13 +33,19 @@ function FormContainer () {
     }
 
     const closeModal = (e: any) => {
+        e.preventDefault();
         setModalOpen(false)
     }
 
     return (
       <>
-      <Form imageURL={imageURL} onChange={onChange} onSubmit={onSubmit} onOpen={openModal}/>
-      <CropModalContainer isOpen={isOpen} onClose={closeModal}/>
+      <Form imageUrl={imageUrl} onSubmit={onSubmit} onOpen={openModal}/>
+      <CropModalContainer 
+        isOpen={isOpen} 
+        onClose={closeModal} 
+        setImageUrl={setImageUrl}
+        setImageBlob={setImageBlob}
+      />
       </>
     )
   };
