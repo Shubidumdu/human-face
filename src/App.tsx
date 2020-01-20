@@ -25,6 +25,7 @@ const App: React.FC = () => {
     body{
         font-family: YangJin, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size: 16px;
+
         background-color: #F2E3B3;
     }
   `;
@@ -36,6 +37,8 @@ const App: React.FC = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 2px #000000;
+    position: fixed;
   `
 
   const HeaderLogo = styled.img`
@@ -47,6 +50,7 @@ const App: React.FC = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 4rem;
   `
 
   return (

@@ -1,6 +1,12 @@
 import baseStyled, { ThemedStyledInterface } from 'styled-components';
 
-export const theme = {
+type Theme = {
+  color: {
+    [code: string]: string;
+  }
+}
+
+export const theme:Theme = {
     color: {
         red: '#F24C27',
         yellow: '#F2B807',
@@ -11,7 +17,7 @@ export const theme = {
     }
   };
 
-export type Theme = typeof theme;
+// export type Theme = typeof theme;
 
 const styled = baseStyled as ThemedStyledInterface<Theme>;
 
