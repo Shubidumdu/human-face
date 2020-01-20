@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import CropModal from '../components/CropModal';
-import { ModalProps } from '../components/CropModal';
 
 type ModalContainerProps = {
     isOpen: boolean;
@@ -32,6 +31,58 @@ function CropModalContainer({
         setCrop(crop);
     }
 
+    const [imageRef, setImageRef] = useState();
+
+    const onImageLoaded = (image : any) => {
+        setImageRef(image);
+    };
+
+
+    const onClick = async (e: any) => {
+        e.preventDefault();
+        makeClientCrop(crop);
+        onClose(e);
+    }
+
+    const makeClientCrop = async (crop : ReactCrop.Crop) => {
+        if (imageRef && crop.width && crop.height) {
+            const croppedImageUrl = await getCroppedImg(
+            imageRef,
+            crop,
+            'FaceImage.png'
+            );
+            setImageUrl(window.URL.createObjectURL(croppedImageUrl));
+            setImageBlob(croppedImageUrl);
+        }
+    }
+
+    async function getCroppedImg(image:any, crop:any, fileName:any): Promise<Blob> {
+        const canvas = document.createElement('canvas');
+        const scaleX = image.naturalWidth / image.width;
+        const scaleY = image.naturalHeight / image.height;
+        canvas.width = crop.width;
+        canvas.height = crop.height;
+        const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
+      
+        ctx.drawImage(
+          image,
+          crop.x * scaleX,
+          crop.y * scaleY,
+          crop.width * scaleX,
+          crop.height * scaleY,
+          0,
+          0,
+          crop.width,
+          crop.height,
+        );
+    
+        return new Promise((resolve, reject) => {
+            canvas.toBlob(blob => {
+              resolve(blob!);
+            }, 'image/png', 1);
+          });
+    }
+
     return <CropModal
         src={src}
         isOpen={isOpen} 
@@ -41,6 +92,8 @@ function CropModalContainer({
         crop={crop}
         setImageUrl={setImageUrl}
         setImageBlob={setImageBlob}
+        onSuccess={onClick}
+        onImageLoaded={onImageLoaded}
         />
 }
 

@@ -24,6 +24,7 @@ function Result({
                     성별 : {gender} 정확도: {genderScore} <br />
                     나이 : {age} 정확도: {ageScore} <br />
                     감정 : {emotion} 정확도: {emotionScore}
+                    <button onClick={onReset}>리셋!</button>
                 </div>
             );
         }
