@@ -12,7 +12,7 @@ const App: React.FC = () => {
     ${reset};
     @font-face{
       font-family: "YangJin";
-      src: url("./components/fonts/yangjin.ttf") format("truetype");
+      src: url(${require('./components/fonts/yangjin.ttf')} format("truetype");
     }
 
     a{
@@ -51,6 +51,7 @@ const App: React.FC = () => {
     justify-content: center;
     align-items: center;
     padding-top: 4rem;
+    padding-bottom: 2rem;
   `
 
   return (

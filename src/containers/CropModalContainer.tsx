@@ -24,7 +24,12 @@ function CropModalContainer({
 
 
     const onFileChange = (e: any) => {
-        setSrc(URL.createObjectURL(e.target.files[0]));
+        try {
+            setSrc(URL.createObjectURL(e.target.files[0]));
+        } 
+        catch (e) {
+            return;
+        }
     }    
 
     const onCropChange = (crop: ReactCrop.Crop, percentCrop: ReactCrop.PercentCrop) => {
@@ -57,23 +62,39 @@ function CropModalContainer({
     }
 
     async function getCroppedImg(image:any, crop:any, fileName:any): Promise<Blob> {
-        const canvas = document.createElement('canvas');
+        const canvas = document.createElement("canvas");
         const scaleX = image.naturalWidth / image.width;
         const scaleY = image.naturalHeight / image.height;
-        canvas.width = crop.width;
-        canvas.height = crop.height;
-        const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
-      
+        var originWidth = crop.width * scaleX;
+        var originHeight = crop.height * scaleY;
+        // maximum width/height
+        var maxWidth = 1200, maxHeight = 1200 / (16 / 9);
+        var targetWidth = originWidth,
+          targetHeight = originHeight;
+        if (originWidth > maxWidth || originHeight > maxHeight) {
+          if (originWidth / originHeight > maxWidth / maxHeight) {
+            targetWidth = maxWidth;
+            targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+          } else {
+            targetHeight = maxHeight;
+            targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+          }
+        }
+        // set canvas size
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+        const ctx = canvas.getContext("2d")!;
+    
         ctx.drawImage(
-          image,
-          crop.x * scaleX,
-          crop.y * scaleY,
-          crop.width * scaleX,
-          crop.height * scaleY,
-          0,
-          0,
-          crop.width,
-          crop.height,
+          image, 
+          crop.x * scaleX, 
+          crop.y * scaleY, 
+          crop.width * scaleX, 
+          crop.height * scaleY, 
+          0, 
+          0, 
+          targetWidth, 
+          targetHeight 
         );
     
         return new Promise((resolve, reject) => {
