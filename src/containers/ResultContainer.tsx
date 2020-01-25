@@ -1,11 +1,18 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../modules';
-import { resetResult } from '../modules/clova';
+import { resetResult, ClovaResult } from '../modules/clova';
 import Result from '../components/Result';
+import { ClovaFace } from '../api/clova';
 
-function ResultContainer() {
-    const clovaData = useSelector((state: RootState) => state.clova.data);
+type ResultContainerProps = {
+    clovaData: ClovaResult
+}
+
+function ResultContainer({clovaData}: ResultContainerProps) {
+
+    const isLoading = useSelector((state: RootState) => state.clova.loading);
+    const isError = useSelector((state: RootState) => state.clova.error)? true : false;
 
     const dispatch = useDispatch();
 
@@ -13,7 +20,7 @@ function ResultContainer() {
         dispatch(resetResult());
     }
 
-    return <Result data={clovaData} onReset={onReset}/>
+    return <Result data={clovaData} isLoading={isLoading} isError={isError} onReset={onReset}/>
 }
 
 export default ResultContainer

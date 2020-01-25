@@ -1,14 +1,19 @@
 import React from 'react';
 import { ClovaResult } from '../modules/clova';
+import Spinner from './Spinner';
 
 type ResultProps = {
-    data: ClovaResult
+    data: ClovaResult;
     onReset: () => void;
+    isLoading: boolean;
+    isError: boolean;
 }
 
 function Result({
     data,
-    onReset
+    onReset,
+    isLoading,
+    isError
     }: ResultProps) {
 
     const {name: celebName, score: celebScore} = data.celebrity;
@@ -16,7 +21,8 @@ function Result({
     const {value: age, score: ageScore} = data.age;
     const {value: emotion, score: emotionScore} = data.emotion;
 
-    if(data.imageInfo.faceCount !== (-1 || 0)) 
+    if(isLoading) return <Spinner isLoading={isLoading} />
+    else if(data.imageInfo.faceCount !== (-1 || 0)) 
         {
             return (
                 <div className="result">
@@ -28,8 +34,7 @@ function Result({
                 </div>
             );
         }
-    else 
-        return <></>;
+    else return <Spinner isLoading={isLoading}/>
 
 }
 

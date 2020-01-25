@@ -5,6 +5,8 @@ import reset from "styled-reset";
 import logo from './components/imgs/title-medium2.png';
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import styled, { theme } from './components/theme';
+import { useSelector } from 'react-redux';
+import { RootState } from './modules';
 
 const App: React.FC = () => {
 
@@ -53,6 +55,7 @@ const App: React.FC = () => {
     padding-top: 4rem;
     padding-bottom: 2rem;
   `
+  const clovaData = useSelector((state: RootState) => state.clova.data);
 
   return (
     <ThemeProvider theme={theme}>
@@ -61,8 +64,9 @@ const App: React.FC = () => {
         <HeaderLogo src={logo} />
       </Header>
       <App className="App">
-        <FormContainer />
-        <ResultContainer />
+        {clovaData.imageInfo.faceCount === -1 ? 
+        <FormContainer /> :
+        <ResultContainer clovaData={clovaData}/> }
       </App>
     </ThemeProvider>
   );
