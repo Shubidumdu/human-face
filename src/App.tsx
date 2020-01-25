@@ -7,6 +7,7 @@ import { ThemeProvider, createGlobalStyle } from "styled-components";
 import styled, { theme } from './components/theme';
 import { useSelector } from 'react-redux';
 import { RootState } from './modules';
+import Spinner from './components/Spinner';
 
 const App: React.FC = () => {
 
@@ -57,12 +58,15 @@ const App: React.FC = () => {
   `
   const clovaData = useSelector((state: RootState) => state.clova.data);
 
+  const isLoading = useSelector((state: RootState) => state.clova.loading);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Header>
         <HeaderLogo src={logo} />
       </Header>
+      <Spinner isLoading={isLoading}/>
       <App className="App">
         {clovaData.imageInfo.faceCount === -1 ? 
         <FormContainer /> :

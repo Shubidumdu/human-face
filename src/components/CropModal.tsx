@@ -3,8 +3,7 @@ import Modal from 'react-modal';
 import ReactCrop from "react-image-crop";
 import styled from './theme';
 import "react-image-crop/dist/ReactCrop.css";
-import {MdClose} from 'react-icons/md';
-import {FaFileUpload, FaCheck} from 'react-icons/fa';
+import {MdFileUpload, MdClose, MdCheck} from 'react-icons/md';
 import { css } from 'styled-components';
 import { darken, lighten } from 'polished';
 
@@ -27,7 +26,7 @@ const ModalStyles:Modal.Styles = {
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)',
         border: '1px solid #ccc',
-        background: '#fff',
+        background: '#FDFAE8',
         overflow: 'auto',
         WebkitOverflowScrolling: 'touch',
         borderRadius: '1rem',
@@ -67,15 +66,29 @@ function CropModal({
 }: ModalProps) {
 
     const CloseButton = useCallback(styled.button`
-        background: none;
-        width: 4rem;
-        height: 4rem;
-        border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-        cursor: Pointer;
+    width: 6rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 2px solid #000;;
+    cursor: pointer;
+
+    ${props => {
+        const color = props.color!
+        const selected = props.theme.color[color];
+        return css`
+          background: ${selected};
+          &:hover {
+            background: ${lighten(0.1, selected)};
+          }
+          &:active {
+            background: ${darken(0.1, selected)};
+          }
+          `;
+        }};
     `, 
     [onClose]
     );
@@ -84,6 +97,7 @@ function CropModal({
         width: 52rem;
         background: black;
         display: flex;
+        border: 2px solid #000;
         align-items: center;
         justify-content: center;
     `
@@ -94,7 +108,8 @@ function CropModal({
         width: 52rem;
         height: 30rem;
         background: ${props => props.theme.color.darkbrown };
-        color: ${props => props.theme.color.ivory};
+        color: #fff;
+        border: 2px solid #000;
         font-size: 3rem;
         justify-content: center;
         align-items: center;
@@ -128,53 +143,56 @@ function CropModal({
     `, []);
 
     const InputLabel = useCallback(styled.label`
-        width: 3rem;
+        width: 6rem;
         height: 3rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: ${props => props.theme.color.yellow};
         padding: 0.5rem;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        border: 2px solid #000;
+        
+        ${props => {
+            const color = props.color!
+            const selected = props.theme.color[color];
+            return css`
+              background: ${selected};
+              &:hover {
+                background: ${lighten(0.1, selected)};
+              }
+              &:active {
+                background: ${darken(0.1, selected)};
+              }
+              `;
+            }};
     `, []);
 
     const SuccessButton = useCallback(styled.button`
-        width: 3rem;
+        width: 6rem;
         height: 3rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: ${props => props.theme.color.green};
         padding: 0.5rem;
-        border-radius: 1rem;
-        border: none;
-    `, []);
-
-    const Button = useCallback(styled.button`
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    border-radius: 1rem;
-    border: none;
+        border-radius: 0.5rem;
+        border: 2px solid #000;
+        cursor: pointer;
 
         ${props => {
-        const color = props.color!
-        const selected = props.theme.color[color];
-        return css`
-            background: ${selected};
-            &:hover {
-            background: ${lighten(0.1, selected)};
-            }
-            &:active {
-            background: ${darken(0.1, selected)};
-            }
-            `;
-        }};
+            const color = props.color!
+            const selected = props.theme.color[color];
+            return css`
+              background: ${selected};
+              &:hover {
+                background: ${lighten(0.1, selected)};
+              }
+              &:active {
+                background: ${darken(0.1, selected)};
+              }
+              `;
+            }};
     `, []);
-    
 
     return (
         <Modal
@@ -184,7 +202,9 @@ function CropModal({
         contentLabel="Image Crop Modal"
         >
             <ModalHeaderWrap>
-                <CloseButton onClick={onClose}>
+                <CloseButton 
+                    onClick={onClose} 
+                    color='red'>
                     <MdClose size='100%'/>
                 </CloseButton>
             </ModalHeaderWrap>
@@ -204,12 +224,12 @@ function CropModal({
                 </BeforeCrop>
             }
             <ModalTailWrap>
-                <InputLabel htmlFor='imgInput'>
-                    <FaFileUpload size='100%'/>
+                <InputLabel htmlFor='imgInput' color='yellow'>
+                    <MdFileUpload size='100%'/>
                 </InputLabel>
                 <InputHiding type='file' onChange={onFileChange} id='imgInput' accept="image/*"/>
-                <SuccessButton onClick={onSuccess}>
-                    <FaCheck size='100%'/>
+                <SuccessButton onClick={onSuccess} color='green'>
+                    <MdCheck size='100%'/>
                 </SuccessButton>
             </ModalTailWrap>
         </Modal>

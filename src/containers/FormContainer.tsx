@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { clovaFace } from '../api/clova';
 import { useDispatch } from 'react-redux';
 import { getResultThunk } from '../modules/clova';
 import Form from '../components/Form';
@@ -18,11 +17,7 @@ function FormContainer () {
         const formData = new FormData();
         formData.append('image', imageBlob!);
 
-        const celeb = await clovaFace('celeb', formData);
-        const faceInfo = await clovaFace('face', formData);
-
-        dispatch(getResultThunk(celeb, faceInfo, formData));
-        setImageBlob(undefined);
+        await dispatch(getResultThunk(formData));
       }
 
     const [isOpen, setModalOpen] = useState(false);

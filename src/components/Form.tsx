@@ -2,7 +2,7 @@ import React from 'react';
 import styled from './theme';
 import { css } from 'styled-components';
 import facesample2 from './imgs/facesample2.png';
-import titleImg from './imgs/title-thin2.png';
+import titleImg from './imgs/title-medium2.png';
 import { TiAttachmentOutline } from 'react-icons/ti';
 import { FaCheck } from 'react-icons/fa';
 import { darken, lighten } from 'polished';
@@ -45,7 +45,7 @@ function Form({
       height: auto;
       background: #000;
       border-radius: 1rem;
-      border: 2px solid #000;
+      border: 2.5px solid #000;
       margin-top: 2rem;
     `;
 
@@ -59,7 +59,7 @@ function Form({
       width: 10rem;
       height: 5rem;
       border-radius: 1rem;
-      border: none;
+      border: 2px solid black;
       margin-top: 1rem;
       display: flex;
       justify-content: center;
@@ -91,9 +91,6 @@ function Form({
         justify-content: flex-start;
     `
 
-    // left: 50%;
-    // transform: translateX(-50%);
-
     return (
       <Form>
         <TitleImg src={titleImg}/>
@@ -112,7 +109,7 @@ function Form({
               left: '50%',
               transform: 'translateX(-50%)'
             }}>
-            <TiAttachmentOutline size='3.5rem' color='white'/>
+            <TiAttachmentOutline size='3.5rem' color='black'/>
           </Button>
           <Button onClick={onSubmit} 
             color='green' 
@@ -120,7 +117,7 @@ function Form({
               position: 'absolute',
               right: '1rem',
             }}>
-            <FaCheck size='3rem' color='white'/>
+            <FaCheck size='3rem' color='black'/>
           </Button>
         </ButtonWrapper>
       </Form>

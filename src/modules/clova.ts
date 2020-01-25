@@ -148,7 +148,7 @@ function clova(
     }
 }
 
-export function getResultThunk(celeb: ClovaCeleb, face: ClovaFace, formData: FormData)
+export function getResultThunk(formData: FormData)
 : ThunkAction<void, RootState, null, ResultAction> {
     return async dispatch => {
       dispatch(getResult());
