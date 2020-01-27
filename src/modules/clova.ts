@@ -116,7 +116,7 @@ function clova(
                             width: action.payload.celeb.info.size.width,
                             height: action.payload.celeb.info.size.height
                         },
-                        faceCount: action.payload.celeb.info.faceCount
+                        faceCount: action.payload.face.info.faceCount,
                     },
                     celebrity: {
                         name: action.payload.celeb.faces[0].celebrity.value,

@@ -19,9 +19,7 @@ function Result({
     const {value: gender, score: genderScore} = data.gender;
     const {value: age, score: ageScore} = data.age;
     const {value: emotion, score: emotionScore} = data.emotion;
-
     
-
     return (
         <div className="result">
             닮은 유명인: {celebName} 정확도: {celebScore} <br/>

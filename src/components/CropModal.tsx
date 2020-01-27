@@ -65,7 +65,6 @@ function CropModal({
     const CloseButton = useCallback(ButtonTiny, [onClose]);
 
     const CropWrapper = useCallback(styled.div`
-        width: 52rem;
         background: black;
         display: flex;
         border: 2px solid #000;

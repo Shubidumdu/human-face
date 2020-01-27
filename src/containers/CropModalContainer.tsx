@@ -14,18 +14,21 @@ function CropModalContainer({
     setImageBlob,
     setImageUrl
 }: ModalContainerProps) {
+
+    const initialCrop:ReactCrop.Crop = {
+        unit: "%",
+        height: 100,
+        aspect: 3 / 4
+    }
+
     const [src, setSrc] = useState('');
-    const [crop, setCrop] = useState<ReactCrop.Crop>(
-        {
-            unit: "%",
-            height: 100,
-            aspect: 3 / 4
-        });
+    const [crop, setCrop] = useState<ReactCrop.Crop>(initialCrop);
 
 
     const onFileChange = (e: any) => {
         try {
             setSrc(URL.createObjectURL(e.target.files[0]));
+            setCrop(initialCrop);
         } 
         catch (e) {
             return;

@@ -27,7 +27,7 @@ export interface Size {
 }
 
 export interface ClovaFace {
-    info:  Info | {};
+    info:  Info;
     faces: Array<Face>;
 }
 
