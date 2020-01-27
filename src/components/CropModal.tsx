@@ -1,12 +1,9 @@
 import React, { useCallback } from 'react';
 import Modal from 'react-modal';
 import ReactCrop from "react-image-crop";
-import styled from './theme';
+import styled, { ButtonTiny, ButtonLabel } from './theme';
 import "react-image-crop/dist/ReactCrop.css";
 import {MdFileUpload, MdClose, MdCheck} from 'react-icons/md';
-import { css } from 'styled-components';
-import { darken, lighten } from 'polished';
-
 
 const ModalStyles:Modal.Styles = {
     overlay: {
@@ -65,33 +62,7 @@ function CropModal({
     onSuccess
 }: ModalProps) {
 
-    const CloseButton = useCallback(styled.button`
-    width: 6rem;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 2px solid #000;;
-    cursor: pointer;
-
-    ${props => {
-        const color = props.color!
-        const selected = props.theme.color[color];
-        return css`
-          background: ${selected};
-          &:hover {
-            background: ${lighten(0.1, selected)};
-          }
-          &:active {
-            background: ${darken(0.1, selected)};
-          }
-          `;
-        }};
-    `, 
-    [onClose]
-    );
+    const CloseButton = useCallback(ButtonTiny, [onClose]);
 
     const CropWrapper = useCallback(styled.div`
         width: 52rem;
@@ -142,57 +113,9 @@ function CropModal({
         border: 0;
     `, []);
 
-    const InputLabel = useCallback(styled.label`
-        width: 6rem;
-        height: 3rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        border: 2px solid #000;
-        
-        ${props => {
-            const color = props.color!
-            const selected = props.theme.color[color];
-            return css`
-              background: ${selected};
-              &:hover {
-                background: ${lighten(0.1, selected)};
-              }
-              &:active {
-                background: ${darken(0.1, selected)};
-              }
-              `;
-            }};
-    `, []);
+    const InputLabel = useCallback(ButtonLabel, []);
 
-    const SuccessButton = useCallback(styled.button`
-        width: 6rem;
-        height: 3rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        border: 2px solid #000;
-        cursor: pointer;
-
-        ${props => {
-            const color = props.color!
-            const selected = props.theme.color[color];
-            return css`
-              background: ${selected};
-              &:hover {
-                background: ${lighten(0.1, selected)};
-              }
-              &:active {
-                background: ${darken(0.1, selected)};
-              }
-              `;
-            }};
-    `, []);
+    const SuccessButton = useCallback(ButtonTiny, []);
 
     return (
         <Modal

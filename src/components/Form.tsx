@@ -1,11 +1,9 @@
 import React from 'react';
-import styled from './theme';
-import { css } from 'styled-components';
+import styled, {ButtonBig, ButtonSmall} from './theme';
 import facesample2 from './imgs/facesample2.png';
 import titleImg from './imgs/title-medium2.png';
 import { TiAttachmentOutline } from 'react-icons/ti';
 import { FaCheck } from 'react-icons/fa';
-import { darken, lighten } from 'polished';
 
 type FormProps = {
     imageUrl: string;
@@ -55,32 +53,6 @@ function Form({
       text-align: center;
       font-size: 1.5rem;
     `
-    const Button = styled.button`
-      width: 10rem;
-      height: 5rem;
-      border-radius: 1rem;
-      border: 2px solid black;
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      font-family: yangjin;
-
-      ${props => {
-        const color = props.color!
-        const selected = props.theme.color[color];
-        return css`
-          background: ${selected};
-          &:hover {
-            background: ${lighten(0.1, selected)};
-          }
-          &:active {
-            background: ${darken(0.1, selected)};
-          }
-          `;
-        }};
-    `
     
     const ButtonWrapper = styled.div`
         display: flex;
@@ -101,7 +73,7 @@ function Form({
         </Desc>
         <FaceImg alt='faceImg' src={src || facesample2} />
         <ButtonWrapper>
-          <Button 
+          <ButtonSmall 
             onClick={onOpen} 
             color='yellow'
             style={{
@@ -110,15 +82,15 @@ function Form({
               transform: 'translateX(-50%)'
             }}>
             <TiAttachmentOutline size='3.5rem' color='black'/>
-          </Button>
-          <Button onClick={onSubmit} 
+          </ButtonSmall>
+          <ButtonBig onClick={onSubmit} 
             color='green' 
             style={{
               position: 'absolute',
               right: '1rem',
             }}>
             <FaCheck size='3rem' color='black'/>
-          </Button>
+          </ButtonBig>
         </ButtonWrapper>
       </Form>
     );
