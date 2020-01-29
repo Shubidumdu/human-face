@@ -5,39 +5,6 @@ import styled, { ButtonTiny, ButtonLabel } from './theme';
 import "react-image-crop/dist/ReactCrop.css";
 import {MdFileUpload, MdClose, MdCheck} from 'react-icons/md';
 
-const ModalStyles:Modal.Styles = {
-    overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.75)'
-      },
-    content: {
-        position: 'absolute',
-        top                   : '50%',
-        left                  : '50%',
-        right                 : 'auto',
-        bottom                : 'auto',
-        marginRight           : '-50%',
-        transform             : 'translate(-50%, -50%)',
-        border: '1px solid #ccc',
-        background: '#FDFAE8',
-        overflow: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        borderRadius: '1rem',
-        outline: 'none',
-        padding: '0 0.25rem'
-      }
-  };
-
-const imageStyle = {
-    height: '100%',
-    maxHeight: '30rem',
-    width: 'auto',
-}
-
 export type ModalProps = {
     isOpen: boolean;
     onClose: (e: any) => void;
@@ -61,6 +28,39 @@ function CropModal({
     onImageLoaded,
     onSuccess
 }: ModalProps) {
+
+    const ModalStyles:Modal.Styles = {
+        overlay: {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.75)'
+          },
+        content: {
+            position: 'absolute',
+            top                   : '50%',
+            left                  : '50%',
+            right                 : 'auto',
+            bottom                : 'auto',
+            marginRight           : '-50%',
+            transform             : 'translate(-50%, -50%)',
+            border: '1px solid #ccc',
+            background: '#FDFAE8',
+            overflow: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: '1rem',
+            outline: 'none',
+            padding: '0 0.25rem'
+          }
+      };
+    
+    const imageStyle = {
+        height: '100%',
+        maxHeight: '30rem',
+        width: 'auto',
+    }
 
     const CloseButton = useCallback(ButtonTiny, [onClose]);
 

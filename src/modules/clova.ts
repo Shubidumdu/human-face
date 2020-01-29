@@ -35,6 +35,11 @@ type ResultAction =
 | ReturnType<typeof getResultError>
 | ReturnType<typeof resetResult>
 
+type valueScore = {
+    value: string;
+    score: number;
+}
+
 export type ClovaResult = {
     imageInfo: {
         size: {
@@ -43,22 +48,10 @@ export type ClovaResult = {
         }
         faceCount: number;
     };
-    celebrity: {
-        name: string;
-        score: number;
-    };
-    gender: {
-        value: string,
-        score: number;
-    };
-    age: {
-        value: string;
-        score: number;
-    };
-    emotion: {
-        value: string;
-        score: number;
-    }
+    celebrity: valueScore[];
+    gender: valueScore;
+    age: valueScore;
+    emotion: valueScore;
 }
 
 type ResultState = {
@@ -78,10 +71,7 @@ const initialState: ResultState = {
             },
             faceCount: -1
         },
-        celebrity: {
-            name: '',
-            score: -1
-        },
+        celebrity: [],
         gender: {
             value: '',
             score: -1
@@ -101,52 +91,54 @@ function clova(
     state: ResultState = initialState,
     action: ResultAction
     ): ResultState {
-    switch (action.type) {
-        case GET_RESULT:
-            return { 
-                ...initialState,
-                loading: true
-            }
-        case GET_RESULT_SUCCESS:
-            return {
-                ...initialState,
-                data: {
-                    imageInfo: {
-                        size: {
-                            width: action.payload.celeb.info.size.width,
-                            height: action.payload.celeb.info.size.height
+        switch (action.type) {
+            case GET_RESULT:
+                return { 
+                    ...initialState,
+                    loading: true
+                }
+            case GET_RESULT_SUCCESS:
+                return {
+                    ...initialState,
+                    data: {
+                        imageInfo: {
+                            size: {
+                                width: action.payload.celeb.info.size.width,
+                                height: action.payload.celeb.info.size.height
+                            },
+                            faceCount: action.payload.face.info.faceCount,
                         },
-                        faceCount: action.payload.face.info.faceCount,
-                    },
-                    celebrity: {
-                        name: action.payload.celeb.faces[0].celebrity.value,
-                        score: action.payload.celeb.faces[0].celebrity.confidence
-                    },
-                    gender: {
-                        value: action.payload.face.faces[0].gender.value,
-                        score: action.payload.face.faces[0].gender.confidence
-                    },
-                    age: {
-                        value: action.payload.face.faces[0].age.value,
-                        score: action.payload.face.faces[0].age.confidence
-                    },
-                    emotion: {
-                        value: action.payload.face.faces[0].emotion.value,
-                        score: action.payload.face.faces[0].emotion.confidence
+                        celebrity: action.payload.celeb.faces.map(
+                            face => {
+                                return {
+                                value: face.celebrity.value,
+                                score: face.celebrity.confidence
+                        }}),
+                        gender: {
+                            value: action.payload.face.faces[0].gender.value,
+                            score: action.payload.face.faces[0].gender.confidence
+                        },
+                        age: {
+                            value: action.payload.face.faces[0].age.value,
+                            score: action.payload.face.faces[0].age.confidence
+                        },
+                        emotion: {
+                            value: action.payload.face.faces[0].emotion.value,
+                            score: action.payload.face.faces[0].emotion.confidence
+                        }
                     }
                 }
-            }
-        case GET_RESULT_FAILURE:
-            return {
-                ...initialState,
-                error: action.payload
-            }
-        case RESET_RESULT:
-            return initialState
-        default:
-            return state;
+            case GET_RESULT_FAILURE:
+                return {
+                    ...initialState,
+                    error: action.payload
+                }
+            case RESET_RESULT:
+                return initialState
+            default:
+                return state;
+        }
     }
-}
 
 export function getResultThunk(formData: FormData)
 : ThunkAction<void, RootState, null, ResultAction> {
