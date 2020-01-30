@@ -12,11 +12,12 @@ export const getResult = () => ({
     type: GET_RESULT,
 });
 
-export const getResultSuccess = (celeb: ClovaCeleb, face: ClovaFace) => ({
+export const getResultSuccess = (celeb: ClovaCeleb, face: ClovaFace, url: string) => ({
     type: GET_RESULT_SUCCESS,
     payload: {
         celeb: celeb,
-        face: face
+        face: face,
+        url: url
     }
 });
 
@@ -42,6 +43,7 @@ type valueScore = {
 
 export type ClovaResult = {
     imageInfo: {
+        url: string;
         size: {
             width: number;
             height: number;
@@ -65,6 +67,7 @@ const initialState: ResultState = {
     error: null,
     data: {
         imageInfo: {
+            url: '',
             size: {
                 width: 0,
                 height: 0
@@ -89,7 +92,7 @@ const initialState: ResultState = {
 
 function clova(
     state: ResultState = initialState,
-    action: ResultAction
+    action: ResultAction,
     ): ResultState {
         switch (action.type) {
             case GET_RESULT:
@@ -102,6 +105,7 @@ function clova(
                     ...initialState,
                     data: {
                         imageInfo: {
+                            url: action.payload.url,
                             size: {
                                 width: action.payload.celeb.info.size.width,
                                 height: action.payload.celeb.info.size.height
@@ -112,19 +116,19 @@ function clova(
                             face => {
                                 return {
                                 value: face.celebrity.value,
-                                score: face.celebrity.confidence
+                                score: Math.round(face.celebrity.confidence * 100)
                         }}),
                         gender: {
                             value: action.payload.face.faces[0].gender.value,
-                            score: action.payload.face.faces[0].gender.confidence
+                            score: Math.round(action.payload.face.faces[0].gender.confidence * 100)
                         },
                         age: {
                             value: action.payload.face.faces[0].age.value,
-                            score: action.payload.face.faces[0].age.confidence
+                            score: Math.round(action.payload.face.faces[0].age.confidence * 100)
                         },
                         emotion: {
                             value: action.payload.face.faces[0].emotion.value,
-                            score: action.payload.face.faces[0].emotion.confidence
+                            score: Math.round(action.payload.face.faces[0].emotion.confidence * 100)
                         }
                     }
                 }
@@ -140,14 +144,14 @@ function clova(
         }
     }
 
-export function getResultThunk(formData: FormData)
+export function getResultThunk(formData: FormData, url: string)
 : ThunkAction<void, RootState, null, ResultAction> {
     return async dispatch => {
       dispatch(getResult());
       try {
         const celeb = await clovaFace('celeb', formData);
         const face = await clovaFace('face', formData);
-        dispatch(getResultSuccess(celeb, face));
+        dispatch(getResultSuccess(celeb, face, url));
       } catch (e) {
         dispatch(getResultError(e));
       }

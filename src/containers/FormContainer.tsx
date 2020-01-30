@@ -17,7 +17,7 @@ function FormContainer () {
         const formData = new FormData();
         formData.append('image', imageBlob!);
 
-        await dispatch(getResultThunk(formData));
+        await dispatch(getResultThunk(formData, imageUrl));
       }
 
     const [isOpen, setModalOpen] = useState(false);

@@ -69,7 +69,7 @@ function Form({
         <Desc>
           분석하길 원하는 얼굴을 첨부하여 제출해주세요! <br />
           인간안면분석기가 AI를 통해 당신의 얼굴을 분석합니다. <br />
-          이를 통해 당신의 닮은꼴 연예인, 성별, 나이, 감정을 추측해냅니다.
+          이를 통해 당신의 닮은꼴 유명인, 성별, 나이, 표정을 출력합니다.
         </Desc>
         <FaceImg alt='faceImg' src={src || facesample2} />
         <ButtonWrapper>
