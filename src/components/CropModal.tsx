@@ -83,6 +83,12 @@ function CropModal({
         font-size: 3rem;
         justify-content: center;
         align-items: center;
+
+        @media (max-width: 820px) {
+            width: 100%;
+            height: 30rem;
+            font-size: 1rem;
+        }
     `, []);
 
     const ModalHeaderWrap = useCallback(styled.div`

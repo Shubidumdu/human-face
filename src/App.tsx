@@ -8,6 +8,7 @@ import styled, { theme } from './components/theme';
 import { useSelector } from 'react-redux';
 import { RootState } from './modules';
 import Spinner from './components/Spinner';
+import AlertProvider from './AlertProvider';
 
 const App: React.FC = () => {
 
@@ -57,21 +58,27 @@ const App: React.FC = () => {
     padding-bottom: 2rem;
   `
   const clovaData = useSelector((state: RootState) => state.clova.data);
-
+  const Error = useSelector((state: RootState) => state.clova.error);
   const isLoading = useSelector((state: RootState) => state.clova.loading);
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Header>
-        <HeaderLogo src={logo} />
-      </Header>
-      <Spinner isLoading={isLoading}/>
-      <App className="App">
-        {clovaData.imageInfo.faceCount === -1 ? 
-        <FormContainer /> :
-        <ResultContainer clovaData={clovaData}/> }
-      </App>
+      <AlertProvider>
+        <GlobalStyle />
+        <Header>
+          <HeaderLogo src={logo} />
+        </Header>
+        <Spinner isLoading={isLoading}/>
+        <App className="App">
+          {
+            clovaData.imageInfo.faceCount === -1 
+            && !Error
+            ? 
+              <FormContainer />  :
+              <ResultContainer clovaData={clovaData}/>
+          }
+        </App>
+      </AlertProvider>
     </ThemeProvider>
   );
 }

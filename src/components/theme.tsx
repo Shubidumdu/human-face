@@ -53,7 +53,7 @@ export const ButtonBig = styled.button`
   height: 5rem;
   border-radius: 1rem;
   border: 2px solid black;
-  margin-top: 1rem;
+  margin: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;

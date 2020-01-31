@@ -153,6 +153,7 @@ export function getResultThunk(formData: FormData, url: string)
         const face = await clovaFace('face', formData);
         dispatch(getResultSuccess(celeb, face, url));
       } catch (e) {
+        console.log(e);
         dispatch(getResultError(e));
       }
     };

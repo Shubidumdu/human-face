@@ -47,6 +47,15 @@ function Result({
         display: flex;
     `;
 
+    const ErrorWrap = styled.div`
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 15rem;
+        line-height: 2;
+    `;
+
     const FaceImg = styled.img`
         margin: 2rem;
         border: 2px solid black;
@@ -165,12 +174,11 @@ function Result({
 
     const celebrities = data.celebrity;
     const ImgUrl = data.imageInfo.url;
+    const faceCount = data.imageInfo.faceCount;
     const {value: gender, score: genderScore} = data.gender;
     const {value: age, score: ageScore} = data.age;
     const {value: emotion, score: emotionScore} = data.emotion;
     
-    
-
     const genderObj: {[key: string]: string} = {
         male: '남',
         female: '여'
@@ -194,7 +202,39 @@ function Result({
         else return 'red';
     }
 
-    return (
+    if(faceCount > 1)
+        return (
+            <WindowWrap>
+                <ResultWrap>
+                    <ResultHead>분석 결과</ResultHead>
+                    <ErrorWrap>
+                        감지되는 얼굴이 너무 많습니다. <br/>
+                        한 명의 얼굴만 나오는 이미지로 다시 시도해주십시오.
+                    </ErrorWrap>
+                </ResultWrap>
+                <ResetButton onClick={onReset}>
+                    <MdRefresh size='4rem' color="#593E2E"/>
+                </ResetButton>
+            </WindowWrap>
+        )
+    
+    else if(isError)
+        return (
+            <WindowWrap>
+                <ResultWrap>
+                    <ResultHead>분석 결과</ResultHead>
+                    <ErrorWrap>
+                        감지되는 얼굴이 존재하지 않거나 기타 오류가 발생했습니다.<br/>
+                        다른 이미지를 사용하여 다시 시도 해주십시오.
+                    </ErrorWrap>
+                </ResultWrap>
+                <ResetButton onClick={onReset}>
+                    <MdRefresh size='4rem' color="#593E2E"/>
+                </ResetButton>
+            </WindowWrap>
+        )
+
+    else return (
         <WindowWrap>
             <ResultWrap>
                 <ResultHead>분석 결과</ResultHead>

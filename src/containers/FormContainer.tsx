@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../modules'
 import { getResultThunk } from '../modules/clova';
 import Form from '../components/Form';
 import CropModalContainer from './CropModalContainer';
+import { useAlert } from 'react-alert'
 
 
 function FormContainer () {
     const dispatch = useDispatch();
+    const alert = useAlert()
 
     const [imageBlob, setImageBlob] = useState<Blob>();
     const [imageUrl, setImageUrl] = useState('');
 
-    const onSubmit = async (e: any) => {
+    const onSubmit = (e: any) => {
+        if(!imageUrl) {
+          alert.show('사진을 첨부하여 주십시오.')
+          return;
+        }
+
         e.preventDefault();
     
         const formData = new FormData();
         formData.append('image', imageBlob!);
 
-        await dispatch(getResultThunk(formData, imageUrl));
+        dispatch(getResultThunk(formData, imageUrl));
       }
 
     const [isOpen, setModalOpen] = useState(false);
