@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {ButtonBig, ButtonSmall} from './theme';
+import styled, {ButtonBig} from './theme';
 import facesample2 from './imgs/facesample2.png';
 import titleImg from './imgs/title-medium2.png';
 import { TiAttachmentOutline } from 'react-icons/ti';

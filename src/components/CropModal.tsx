@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react';
-import Modal from 'react-modal';
 import ReactCrop from "react-image-crop";
 import styled, { ButtonTiny, ButtonLabel } from './theme';
 import "react-image-crop/dist/ReactCrop.css";
 import {MdFileUpload, MdClose, MdCheck} from 'react-icons/md';
+import Modal from 'styled-react-modal'
+import './css/modal.css';
 
 export type ModalProps = {
     isOpen: boolean;
@@ -28,39 +29,28 @@ function CropModal({
     onImageLoaded,
     onSuccess
 }: ModalProps) {
-
-    const ModalStyles:Modal.Styles = {
-        overlay: {
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.75)'
-          },
-        content: {
-            position: 'absolute',
-            top                   : '50%',
-            left                  : '50%',
-            right                 : 'auto',
-            bottom                : 'auto',
-            marginRight           : '-50%',
-            transform             : 'translate(-50%, -50%)',
-            border: '1px solid #ccc',
-            background: '#FDFAE8',
-            overflow: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: '1rem',
-            outline: 'none',
-            padding: '0 0.25rem'
-          }
-      };
     
-    const imageStyle = {
-        height: '100%',
-        maxHeight: '30rem',
-        width: 'auto',
-    }
+    const StyledModal = useCallback(Modal.styled`
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        right: auto;
+        bottom: auto;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #ccc;
+        background: #FDFAE8;
+        overflow: auto;
+        border-radius: 1rem;
+        outline: none;
+        padding: 0 0.5rem;
+    
+        @media (max-width: 850px) {
+            width: 100%;
+            height: auto;
+        }
+        `
+    , []);
 
     const CloseButton = useCallback(ButtonTiny, [onClose]);
 
@@ -84,10 +74,10 @@ function CropModal({
         justify-content: center;
         align-items: center;
 
-        @media (max-width: 820px) {
+        @media (max-width: 850px) {
             width: 100%;
-            height: 30rem;
-            font-size: 1rem;
+            height: 20rem;
+            font-size: 1.5rem;
         }
     `, []);
 
@@ -97,6 +87,10 @@ function CropModal({
         display: flex;
         justify-content: flex-end;
         align-items: center;
+
+        @media (max-width: 850px) {
+            height: 3rem;
+        }
     `, []);
 
     const ModalTailWrap = useCallback(styled.div`
@@ -105,6 +99,10 @@ function CropModal({
         display: flex;
         justify-content: space-between;
         align-items: center;
+        
+        @media (max-width: 850px) {
+            height: 3rem;
+        }
     `, []);
 
     const InputHiding = useCallback(styled.input`
@@ -123,11 +121,10 @@ function CropModal({
     const SuccessButton = useCallback(ButtonTiny, []);
 
     return (
-        <Modal
+        <StyledModal
         isOpen={isOpen}
-        onRequestClose={onClose}
-        style={ModalStyles}
-        contentLabel="Image Crop Modal"
+        onBackgroundClick={onClose}
+        onEscapeKeydown={onClose}
         >
             <ModalHeaderWrap>
                 <CloseButton 
@@ -139,7 +136,6 @@ function CropModal({
             {src &&
                 <CropWrapper>
                     <ReactCrop 
-                        imageStyle={imageStyle} 
                         src={src} 
                         onChange={onCropChange} 
                         crop={crop} 
@@ -160,10 +156,8 @@ function CropModal({
                     <MdCheck size='100%'/>
                 </SuccessButton>
             </ModalTailWrap>
-        </Modal>
+        </StyledModal>
     );
 }
-
-Modal.setAppElement('#root');
 
 export default CropModal;

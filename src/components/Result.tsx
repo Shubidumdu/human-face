@@ -23,6 +23,10 @@ function Result({
     const WindowWrap = styled.div`
         display: flex;
         flex-direction: column;
+
+        @media (max-width: 850px) {
+            width: 100%;
+        }
     `
 
     const ResultWrap = styled.div`
@@ -36,6 +40,10 @@ function Result({
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        
+        @media (max-width: 850px) {
+            width: 100%;
+        }
     `;
 
     const ResultHead = styled.h1`
@@ -46,6 +54,12 @@ function Result({
     const ContentWrap = styled.div`
         width: 100%;
         display: flex;
+        
+        @media (max-width: 850px) {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     `;
 
     const ErrorWrap = styled.div`
@@ -57,6 +71,11 @@ function Result({
         line-height: 2;
         flex-direction: column;
         padding-bottom: 1rem;
+
+        @media (max-width: 850px) {
+            font-size: 0.8rem;
+            height: 20rem;
+        }
     `;
 
     const FaceImg = styled.img`
@@ -65,6 +84,10 @@ function Result({
         border-radius: 1rem;
         width: 20rem;
         height: auto;
+
+        @media (max-width: 320px) {
+            width: 95%;
+        }
     `;
 
     const DescWrap = styled.div`
@@ -72,6 +95,11 @@ function Result({
         width: 100%;
         justify-content: space-evenly;
         flex-direction: column;
+
+        @media (max-width: 850px) {
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
     `
     
     const DescHeader = styled.div`
@@ -92,18 +120,30 @@ function Result({
         font-size: 1.5rem;
         width: 33.3%;
         text-align: center;
+        
+        @media (max-width: 320px) {
+            font-size: 1.3rem;
+        }
     `;
 
     const Value = styled.span`
         font-size: 1.7rem;
         width: 33.3%;
         text-align: center;
+
+        @media (max-width: 320px) {
+            font-size: 1.5rem;
+        }
     `;
 
     const Score = styled.span`
         font-size: 2rem;
         width: 33.3%;
         text-align: center;
+
+        @media (max-width: 320px) {
+            font-size: 1.9rem;
+        }
 
         ${props => {
             const color = props.color!

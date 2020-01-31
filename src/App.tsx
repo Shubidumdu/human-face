@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from './modules';
 import Spinner from './components/Spinner';
 import AlertProvider from './AlertProvider';
+import ModalProvider from './ModalProvider';
 
 const App: React.FC = () => {
 
@@ -63,22 +64,24 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AlertProvider>
-        <GlobalStyle />
-        <Header>
-          <HeaderLogo src={logo} />
-        </Header>
-        <Spinner isLoading={isLoading}/>
-        <App className="App">
-          {
-            clovaData.imageInfo.faceCount === -1 
-            && !Error
-            ? 
-              <FormContainer />  :
-              <ResultContainer clovaData={clovaData}/>
-          }
-        </App>
-      </AlertProvider>
+      <ModalProvider>
+        <AlertProvider>
+          <GlobalStyle />
+          <Header>
+            <HeaderLogo src={logo} />
+          </Header>
+          <Spinner isLoading={isLoading}/>
+          <App className="App">
+            {
+              clovaData.imageInfo.faceCount === -1 
+              && !Error
+              ? 
+                <FormContainer />  :
+                <ResultContainer clovaData={clovaData}/>
+            }
+          </App>
+        </AlertProvider>
+      </ModalProvider>
     </ThemeProvider>
   );
 }

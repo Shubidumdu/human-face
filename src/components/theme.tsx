@@ -73,6 +73,8 @@ export const ButtonBig = styled.button`
       }
       `;
     }};
+
+  
 `
 
 export const ButtonTiny = styled.button`
@@ -85,6 +87,11 @@ export const ButtonTiny = styled.button`
   border-radius: 0.5rem;
   border: 2px solid #000;
   cursor: pointer;
+
+  @media (max-width: 850px) {
+    width: 2rem;
+    height: 2rem;
+  }
 
   ${props => {
       const color = props.color!
@@ -99,6 +106,8 @@ export const ButtonTiny = styled.button`
         }
         `;
       }};
+
+  
 `
 
 export const ButtonLabel = styled.label`
@@ -111,6 +120,11 @@ export const ButtonLabel = styled.label`
   border-radius: 0.5rem;
   cursor: pointer;
   border: 2px solid #000;
+
+  @media (max-width: 850px) {
+    width: 2rem;
+    height: 2rem;
+  }
 
   ${props => {
       const color = props.color!
