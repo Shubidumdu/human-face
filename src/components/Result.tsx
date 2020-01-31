@@ -2,8 +2,9 @@ import React from 'react';
 import { ClovaResult } from '../modules/clova';
 import styled from './theme';
 import { css } from 'styled-components';
-import { MdRefresh } from 'react-icons/md';
+import { MdRefresh, MdErrorOutline } from 'react-icons/md';
 import { darken, lighten } from 'polished';
+import {IoMdPeople} from 'react-icons/io';
 
 type ResultProps = {
     data: ClovaResult;
@@ -52,8 +53,10 @@ function Result({
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 15rem;
+        height: auto;
         line-height: 2;
+        flex-direction: column;
+        padding-bottom: 1rem;
     `;
 
     const FaceImg = styled.img`
@@ -208,8 +211,9 @@ function Result({
                 <ResultWrap>
                     <ResultHead>분석 결과</ResultHead>
                     <ErrorWrap>
+                        <IoMdPeople size="10rem"/>
                         감지되는 얼굴이 너무 많습니다. <br/>
-                        한 명의 얼굴만 나오는 이미지로 다시 시도해주십시오.
+                        하나의 얼굴만 나오는 이미지로 다시 시도해주십시오.
                     </ErrorWrap>
                 </ResultWrap>
                 <ResetButton onClick={onReset}>
@@ -224,6 +228,7 @@ function Result({
                 <ResultWrap>
                     <ResultHead>분석 결과</ResultHead>
                     <ErrorWrap>
+                        <MdErrorOutline size="10rem"/>
                         감지되는 얼굴이 존재하지 않거나 기타 오류가 발생했습니다.<br/>
                         다른 이미지를 사용하여 다시 시도 해주십시오.
                     </ErrorWrap>

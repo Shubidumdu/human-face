@@ -2,27 +2,30 @@ import React from 'react'
 import { transitions, positions, Provider } from 'react-alert'
 import styled from './components/theme';
 
-const AlertTemplate = ({ style, options, message, close }:any) => {
-    const alertStyle = {
-        background: 'black'
-    }
+const AlertTemplate = ({ options, message, close }:any) => {
+    const StyledAlert = styled.div`
+      background: ${props => props.theme.color.red};
+      color: ${props => props.theme.color.ivory};
+      width: 25rem;
+      height: 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      border: 2px solid black;
+      border-radius: 1rem;
+      `;
 
-    return <div style={alertStyle}>
-      {options.type === 'info' && '!'}
-      {options.type === 'success' && ':)'}
-      {options.type === 'error' && ':('}
+    return <StyledAlert>
       {message}
-      <button onClick={close}>X</button>
-    </div>
+    </StyledAlert>
   }
 
 // optional cofiguration
 const options = {
-    // you can also just use 'bottom center'
-    position: positions.BOTTOM_CENTER,
-    timeout: 1000000000,
+    position: positions.MIDDLE,
+    timeout: 3000,
     offset: '30px',
-    // you can also just use 'scale'
     transition: transitions.SCALE
   }
 
