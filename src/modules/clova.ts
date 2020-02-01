@@ -50,7 +50,7 @@ export type ClovaResult = {
         }
         faceCount: number;
     };
-    celebrity: valueScore[];
+    celebrity: valueScore;
     gender: valueScore;
     age: valueScore;
     emotion: valueScore;
@@ -74,7 +74,10 @@ const initialState: ResultState = {
             },
             faceCount: -1
         },
-        celebrity: [],
+        celebrity: {
+            value: '',
+            score: -1
+        },
         gender: {
             value: '',
             score: -1
@@ -112,12 +115,10 @@ function clova(
                             },
                             faceCount: action.payload.face.info.faceCount,
                         },
-                        celebrity: action.payload.celeb.faces.map(
-                            face => {
-                                return {
-                                value: face.celebrity.value,
-                                score: Math.round(face.celebrity.confidence * 100)
-                        }}),
+                        celebrity: {
+                            value: action.payload.celeb.faces[0].celebrity.value,
+                            score: Math.round(action.payload.celeb.faces[0].celebrity.confidence * 100)
+                        },
                         gender: {
                             value: action.payload.face.faces[0].gender.value,
                             score: Math.round(action.payload.face.faces[0].gender.confidence * 100)

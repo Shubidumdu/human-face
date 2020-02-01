@@ -153,37 +153,6 @@ function Result({
         text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     `;
 
-    const ResembleWrap = styled.span`
-        display: flex;
-        flex-direction: column;
-        line-height: 1.4;
-        width: 66%;
-    `;
-
-    const ResembleContent = styled.span`
-        display: flex;
-        width: 100%;
-    `;
-
-    const ResembleValue = styled.span`
-        font-size: 1.7rem;
-        text-align: center;
-        width: 50%;
-    `
-
-    const ResembleScore = styled.span`
-        text-align: center;
-        width: 50%;
-        ${props => {
-            const color = props.color!
-            const selected = props.theme.color[color];
-            return css`
-              color: ${selected};
-              `;
-            }};
-        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    `
-
     const Percentage = styled.span`
         font-size: 1rem;
         color: #000;
@@ -212,10 +181,9 @@ function Result({
             box-shadow: none;
         }
     `
-
-    const celebrities = data.celebrity;
     const ImgUrl = data.imageInfo.url;
     const faceCount = data.imageInfo.faceCount;
+    const {value: celebrity, score: celebrityScore} = data.celebrity;
     const {value: gender, score: genderScore} = data.gender;
     const {value: age, score: ageScore} = data.age;
     const {value: emotion, score: emotionScore} = data.emotion;
@@ -310,19 +278,10 @@ function Result({
                         </DescContent>
                         <DescContent>
                             <Category>닮은꼴</Category>
-                            <ResembleWrap>
-                                {
-                                    celebrities.map((celeb, index) => {
-                                        return (
-                                        <ResembleContent key={index}>
-                                            <ResembleValue>{celeb.value}</ResembleValue>
-                                            <ResembleScore color={scoreColor(celeb.score)}>{celeb.score}
-                                                <Percentage>%</Percentage>
-                                            </ResembleScore>
-                                        </ResembleContent>)
-                                    })
-                                }
-                            </ResembleWrap>
+                            <Value>{celebrity}</Value>
+                            <Score color={scoreColor(celebrityScore)}>{celebrityScore}
+                                <Percentage>%</Percentage>
+                            </Score>
                         </DescContent>
                     </DescWrap>
                 </ContentWrap>
