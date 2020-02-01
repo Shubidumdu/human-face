@@ -19,11 +19,9 @@ const upload = multer({
     storage: multer.diskStorage({
       destination: function (req, file, cb) {
         cb(null, 'uploads/');
-        console.log(file);
       },
       filename: function (req, file, cb) {
         cb(null, new Date().valueOf() + path.extname(file.originalname));
-        console.log(file);
       }
     }),
   });
@@ -34,6 +32,7 @@ app.post('/api/celeb', upload.single('image'), (req, res) => {
 
     const file_name = req.file.filename;
     const file_path = path.resolve('../human-face/uploads/' + file_name);
+    console.log(file_path);
 
     var _formData = {
         image:'image',
@@ -58,6 +57,8 @@ app.post('/api/face', upload.single('image'), (req, res) => {
 
   const file_name = req.file.filename;
   const file_path = path.resolve('../human-face/uploads/' + file_name);
+
+  console.log(file_path);
 
   var _formData = {
       image:'image',
