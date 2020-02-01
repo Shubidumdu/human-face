@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const os = require("os");
 const request = require('request');
 const multer = require('multer');
 
@@ -44,8 +43,8 @@ app.post('/api/celeb', upload.single('image'), (req, res) => {
          console.log(response.headers['content-type'])
       });
 
-    // fs.unlink(file_path, function() {
-    // });
+    fs.unlink(file_path, function() {
+    });
     console.log( request.head  );
     _req.pipe(res);
 })
@@ -69,8 +68,8 @@ app.post('/api/face', upload.single('image'), (req, res) => {
     });
 
   console.log( request.head  );
-  // fs.unlink(file_path, function() {
-  // });
+  fs.unlink(file_path, function() {
+  });
   _req.pipe(res);
 })
 
