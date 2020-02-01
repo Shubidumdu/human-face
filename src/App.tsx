@@ -15,10 +15,6 @@ const App: React.FC = () => {
 
   const GlobalStyle = createGlobalStyle`
     ${reset};
-    @font-face{
-      font-family: "YangJin";
-      src: url(${require('./components/fonts/yangjin.ttf')} format("truetype");
-    }
 
     a{
         text-decoration:none;
