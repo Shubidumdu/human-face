@@ -14,6 +14,12 @@ const AlertTemplate = ({ options, message, close }:any) => {
       font-size: 2rem;
       border: 2px solid black;
       border-radius: 1rem;
+
+          @media (max-width: 850px) {
+            width: 18rem;
+            height: 6rem;
+            font-size: 1.5rem;
+        }
       `;
 
     return <StyledAlert>

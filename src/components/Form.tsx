@@ -32,7 +32,7 @@ function Form({
       flex-direction: column;
 
       @media (max-width: 820px) {
-        width: 100%;
+        width: 97%;
       }
     `;
 
