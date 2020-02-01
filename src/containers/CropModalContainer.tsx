@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import CropModal from '../components/CropModal';
+import loadImage from 'blueimp-load-image';
 
 type ModalContainerProps = {
     isOpen: boolean;
@@ -27,8 +28,14 @@ function CropModalContainer({
 
     const onFileChange = (e: any) => {
         try {
-            setSrc(URL.createObjectURL(e.target.files[0]));
-            setCrop(initialCrop);
+          loadImage( e.target.files[0], function (img) {
+            const imgCanvas = img as HTMLCanvasElement;
+            const base64data = imgCanvas.toDataURL('image/png');
+            setSrc(base64data); },
+            {orientation: true, }
+          );
+          
+          setCrop(initialCrop);
         } 
         catch (e) {
             return;
