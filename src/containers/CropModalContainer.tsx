@@ -70,7 +70,6 @@ function CropModalContainer({
         const scaleY = image.naturalHeight / image.height;
         var originWidth = crop.width * scaleX;
         var originHeight = crop.height * scaleY;
-        // maximum width/height
         var maxWidth = 1200, maxHeight = 1200 / (16 / 9);
         var targetWidth = originWidth,
           targetHeight = originHeight;

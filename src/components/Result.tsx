@@ -9,14 +9,12 @@ import {IoMdPeople} from 'react-icons/io';
 type ResultProps = {
     data: ClovaResult;
     onReset: () => void;
-    isLoading: boolean;
     isError: boolean;
 }
 
 function Result({
     data,
     onReset,
-    isLoading,
     isError
     }: ResultProps) {
     

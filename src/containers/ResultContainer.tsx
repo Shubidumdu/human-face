@@ -9,8 +9,6 @@ type ResultContainerProps = {
 }
 
 function ResultContainer({clovaData}: ResultContainerProps) {
-
-    const isLoading = useSelector((state: RootState) => state.clova.loading);
     const isError = useSelector((state: RootState) => state.clova.error)? true : false;
 
     const dispatch = useDispatch();
@@ -19,7 +17,7 @@ function ResultContainer({clovaData}: ResultContainerProps) {
         dispatch(resetResult());
     }
 
-    return <Result data={clovaData} isLoading={isLoading} isError={isError} onReset={onReset}/>
+    return <Result data={clovaData} isError={isError} onReset={onReset}/>
 }
 
 export default ResultContainer

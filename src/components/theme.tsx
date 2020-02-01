@@ -18,8 +18,6 @@ export const theme:Theme = {
     }
   };
 
-// export type Theme = typeof theme;
-
 const styled = baseStyled as ThemedStyledInterface<Theme>;
 
 export const ButtonSmall = styled.button`
