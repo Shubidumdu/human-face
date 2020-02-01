@@ -89,12 +89,14 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "nodemon server/server.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
+    "client": "node scripts/start.js",
     "server": "nodemon server/server.js",
-    "dev": "concurrently \"yarn server\" \"yarn start\""
+    "dev": "concurrently \"yarn server\" \"yarn client\""
   },
+  "heroku-run-build-script": true,
   "eslintConfig": {
     "extends": "react-app"
   },

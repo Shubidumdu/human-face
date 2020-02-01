@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 4000;
 const client_id = 'glSHQedHpNBlwaF8I_D0';
 const client_secret = 'F3tPDnL2Ng';
 
-app.use(express.static(path.join(__dirname, '..', 'public/')));
-// app.use(express.static(path.join(__dirname, '..', 'build/')));
+// app.use(express.static(path.join(__dirname, '..', 'public/')));
+app.use(express.static(path.join(__dirname, '..', 'build/')));
 
 app.get("/api/getUsername", function(req, res, next){
     res.send({ username: os.userInfo().username });
