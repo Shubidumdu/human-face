@@ -25,7 +25,7 @@ const upload = multer({
     }),
   });
 
-app.post('/api/celeb', upload.single('image'), (req, res) => {
+app.post('/api/celeb', upload.single('image'), async (req, res) => {
 
     const api_url = 'https://openapi.naver.com/v1/vision/celebrity';
 
@@ -37,7 +37,7 @@ app.post('/api/celeb', upload.single('image'), (req, res) => {
         image: fs.createReadStream(file_path)
       };
     
-    var _req = request.post({url:api_url, formData: _formData,
+    var _req = await request.post({url:api_url, formData: _formData,
         headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}}).on('response', function(response) {
          console.log(response.statusCode) // 200
          console.log(response.headers['content-type'])
@@ -49,7 +49,7 @@ app.post('/api/celeb', upload.single('image'), (req, res) => {
     _req.pipe(res);
 })
 
-app.post('/api/face', upload.single('image'), (req, res) => {
+app.post('/api/face', upload.single('image'), async(req, res) => {
 
   const api_url = 'https://openapi.naver.com/v1/vision/face';
 
@@ -61,7 +61,7 @@ app.post('/api/face', upload.single('image'), (req, res) => {
       image: fs.createReadStream(file_path)
     };
   
-  var _req = request.post({url:api_url, formData: _formData,
+  var _req = await request.post({url:api_url, formData: _formData,
       headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}}).on('response', function(response) {
        console.log(response.statusCode) // 200
        console.log(response.headers['content-type'])

@@ -46,7 +46,7 @@ function CropModal({
         padding: 0 0.5rem;
     
         @media (max-width: 850px) {
-            width: 100%;
+            width: 95%;
             height: auto;
         }
         `

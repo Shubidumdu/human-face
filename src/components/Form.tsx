@@ -68,7 +68,7 @@ function Form({
       font-size: 1.5rem;
 
       @media (max-width: 750px) {
-        font-size: 1rem;
+        font-size: 0.95rem;
         line-height: 1.7;
       }
 
