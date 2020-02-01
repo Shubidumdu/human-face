@@ -31,8 +31,7 @@ app.post('/api/celeb', upload.single('image'), (req, res) => {
     const api_url = 'https://openapi.naver.com/v1/vision/celebrity';
 
     const file_name = req.file.filename;
-    const file_path = path.resolve('../human-face/uploads/' + file_name);
-    console.log(file_path);
+    const file_path = path.resolve('../app/uploads/' + file_name);
 
     var _formData = {
         image:'image',
@@ -56,9 +55,7 @@ app.post('/api/face', upload.single('image'), (req, res) => {
   const api_url = 'https://openapi.naver.com/v1/vision/face';
 
   const file_name = req.file.filename;
-  const file_path = path.resolve('../human-face/uploads/' + file_name);
-
-  console.log(file_path);
+  const file_path = path.resolve('../app/uploads/' + file_name);
 
   var _formData = {
       image:'image',
