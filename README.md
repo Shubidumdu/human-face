@@ -2,7 +2,7 @@
 
 ## 얼굴 분석 웹 애플리케이션
 
-- 이용은 [여기](https://human-face-report.herokuapp.com/)에서 하실수 있습니다.
+- [여기](https://human-face-report.herokuapp.com/)에서 이용하실수 있습니다.
 
 - 해당 애플리케이션은 Naver Clova Api를 사용합니다.
 
@@ -12,7 +12,7 @@
 
 <img src="./sample/sample_app.png">
 
-- 해당 이미지의 닮은꼴 유명인, 나이, 성별, 표정을 정확도와 함께 보고서 형태로 제출해줄 겁니다!
+- 인간안면분석기가 해당 이미지의 닮은꼴 유명인, 나이, 성별, 표정을 정확도와 함께 보고서 형태로 제출해줄 겁니다!
 
 ## 라이브러리
 
