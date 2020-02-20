@@ -41,7 +41,7 @@ const App: React.FC = () => {
     box-shadow: 0 2px #000000;
     position: fixed;
 
-    @media (max-width: 425px) {
+    @media (max-width: 426px) {
       display: none;
     }
   `
@@ -58,7 +58,7 @@ const App: React.FC = () => {
     padding-top: 4rem;
     padding-bottom: 2rem;
 
-    @media (max-width: 425px) {
+    @media (max-width: 426px) {
       margin: 0.5rem;
       padding: 0;
     }

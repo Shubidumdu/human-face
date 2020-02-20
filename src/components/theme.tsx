@@ -72,7 +72,11 @@ export const ButtonBig = styled.button`
       `;
     }};
 
-  
+  @media (max-width: 426px) {
+    width: 8rem;
+    height: 4rem;
+    margin: 1rem;
+  }
 `
 
 export const ButtonTiny = styled.button`

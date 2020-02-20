@@ -23,7 +23,11 @@ function Result({
         flex-direction: column;
 
         @media (max-width: 850px) {
-            width: 100%;
+            width: 97%;
+        }
+
+        @media (max-width: 426px) {
+            margin-top: 0;
         }
     `
 
@@ -42,20 +46,41 @@ function Result({
         @media (max-width: 850px) {
             width: 100%;
         }
+
+        @media (max-width: 426px) {
+            width: 100%;
+            margin-top: 0;
+            height: 98vh;
+        }
     `;
 
     const ResultHead = styled.h1`
         font-size: 1.5rem;
         margin-top: 1.5rem;
+        display: none;
+
+        @media (max-width: 850px) {
+            display: block
+        }
+
+        @media (max-width: 426px) {
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 320px) {
+            font-size: 1rem;
+        }
     `;
 
     const ContentWrap = styled.div`
         width: 100%;
+        height: 100%;
         display: flex;
         
         @media (max-width: 850px) {
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
         }
     `;
@@ -86,6 +111,12 @@ function Result({
         @media (max-width: 320px) {
             width: 95%;
         }
+
+        @media (max-width: 426px) {
+            height: 55%;
+            width: auto;
+            margin: 0;
+        }
     `;
 
     const DescWrap = styled.div`
@@ -98,6 +129,10 @@ function Result({
             line-height: 2;
             margin-bottom: 2rem;
         }
+
+        @media (max-width: 426px) {
+            margin-bottom: 0;
+        }
     `
     
     const DescHeader = styled.div`
@@ -105,6 +140,10 @@ function Result({
         text-align: center;
         align-self: flex-end;
         font-size: 1.5rem;
+
+        @media (max-width: 426px) {
+            font-size: 1rem;
+        }
     `;
 
     const DescContent = styled.div`
@@ -122,6 +161,10 @@ function Result({
         @media (max-width: 320px) {
             font-size: 1.3rem;
         }
+
+        @media (max-width: 426px) {
+            font-size: 1rem;
+        }
     `;
 
     const Value = styled.span`
@@ -129,8 +172,9 @@ function Result({
         width: 33.3%;
         text-align: center;
 
-        @media (max-width: 320px) {
-            font-size: 1.5rem;
+
+        @media (max-width: 426px) {
+            font-size: 1.3rem;
         }
     `;
 
@@ -139,8 +183,8 @@ function Result({
         width: 33.3%;
         text-align: center;
 
-        @media (max-width: 320px) {
-            font-size: 1.9rem;
+        @media (max-width: 426px) {
+            font-size: 1.4rem;
         }
 
         ${props => {
@@ -215,8 +259,8 @@ function Result({
         return (
             <WindowWrap>
                 <ResultWrap>
-                    <ResultHead>분석 결과</ResultHead>
                     <ErrorWrap>
+                        <ResultHead>분석 결과</ResultHead>
                         <IoMdPeople size="10rem"/>
                         감지되는 얼굴이 너무 많습니다. <br/>
                         하나의 얼굴만 나오는 이미지로 다시 시도해주십시오.
@@ -232,8 +276,8 @@ function Result({
         return (
             <WindowWrap>
                 <ResultWrap>
-                    <ResultHead>분석 결과</ResultHead>
                     <ErrorWrap>
+                        <ResultHead>분석 결과</ResultHead>
                         <MdErrorOutline size="10rem"/>
                         감지되는 얼굴이 존재하지 않거나 기타 오류가 발생했습니다.<br/>
                         다른 이미지를 사용하여 다시 시도 해주십시오.
@@ -248,8 +292,8 @@ function Result({
     else return (
         <WindowWrap>
             <ResultWrap>
-                <ResultHead>분석 결과</ResultHead>
                 <ContentWrap>
+                <ResultHead>분석 결과</ResultHead>
                 <FaceImg src={ImgUrl} alt='faceImg' />
                     <DescWrap>
                         <DescHeader>정확도</DescHeader>

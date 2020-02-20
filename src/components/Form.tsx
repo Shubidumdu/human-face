@@ -35,11 +35,19 @@ function Form({
         width: 97%;
       }
 
-      @media (max-width: 425px) {
+      @media (max-width: 426px) {
         margin-top: 0;
-        height: 98vh;
+        height: 97vh;
         width: 100%;
       }
+    `;
+
+    const TitleWrap = styled.div`
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      align-items: center;
+      justify-content: space-evenly;
     `;
 
     const TitleImg = styled.img`
@@ -49,6 +57,10 @@ function Form({
 
       @media (max-width: 820px) {
         width: 80%;
+      }
+
+      @media (max-width: 426px) {
+        margin-top: 0;
       }
     `;
 
@@ -65,6 +77,12 @@ function Form({
         height: auto;
         margin-top: 1rem;
       }
+
+      @media (max-width: 426px) {
+        height: 55%;
+        width: auto;
+        margin-top: 0;
+      }
     `;
 
     const Desc = styled.h6`
@@ -78,9 +96,12 @@ function Form({
         line-height: 1.7;
       }
 
+      @media (max-width: 426px) {
+        margin-top: 0;
+      }
       
       @media (max-width: 320px) {
-        font-size: 0.875rem;
+        font-size: 0.75rem;
         line-height: 1.7;
       }
     `
@@ -92,27 +113,34 @@ function Form({
         height: 7rem;
         position: relative;
         justify-content: center;
+
+        @media (max-width: 426px) {
+          height: 50%;
+          align-items: center;
+        }
     `
 
     return (
       <Form>
-        <TitleImg src={titleImg}/>
-        <Desc>
-          분석하길 원하는 얼굴을 첨부하여 제출해주세요! <br />
-          인간안면분석기가 AI를 통해 당신의 얼굴을 분석하여 <br />
-          당신의 닮은꼴 유명인, 성별, 나이, 표정을 출력합니다.
-        </Desc>
+        <TitleWrap>
+          <TitleImg src={titleImg}/>
+          <Desc>
+            분석하길 원하는 얼굴을 첨부하여 제출해주세요! <br />
+            인간안면분석기가 AI를 통해 당신의 얼굴을 분석하여 <br />
+            당신의 닮은꼴 유명인, 성별, 나이, 표정을 출력합니다.
+          </Desc>
+        </TitleWrap>
         <FaceImg alt='faceImg' src={src || facesample2} />
         <ButtonWrapper>
           <ButtonBig 
             onClick={onOpen} 
             color='yellow'>
-            <TiAttachmentOutline size='3.5rem' color='black'/>
+            <TiAttachmentOutline size='90%' color='black'/>
           </ButtonBig>
           <ButtonBig 
             onClick={onSubmit} 
             color='green' >
-            <FaCheck size='3rem' color='black'/>
+            <FaCheck size='80%' color='black'/>
           </ButtonBig>
         </ButtonWrapper>
       </Form>
