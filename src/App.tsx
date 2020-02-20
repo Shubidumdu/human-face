@@ -40,6 +40,10 @@ const App: React.FC = () => {
     align-items: center;
     box-shadow: 0 2px #000000;
     position: fixed;
+
+    @media (max-width: 425px) {
+      display: none;
+    }
   `
 
   const HeaderLogo = styled.img`
@@ -53,6 +57,11 @@ const App: React.FC = () => {
     align-items: center;
     padding-top: 4rem;
     padding-bottom: 2rem;
+
+    @media (max-width: 425px) {
+      margin: 0.5rem;
+      padding: 0;
+    }
   `
   const clovaData = useSelector((state: RootState) => state.clova.data);
   const Error = useSelector((state: RootState) => state.clova.error);

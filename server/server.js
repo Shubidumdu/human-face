@@ -8,8 +8,8 @@ var fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const client_id = 'glSHQedHpNBlwaF8I_D0';
-const client_secret = 'F3tPDnL2Ng';
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
 
 if(process.env.NODE_ENV === 'production') app.use(express.static(path.join(__dirname, '..', 'build/')));
 else app.use(express.static(path.join(__dirname, '..', 'public/')));
@@ -39,7 +39,7 @@ app.post('/api/celeb', upload.single('image'), async (req, res) => {
     
     var _req = await request.post({url:api_url, formData: _formData,
         headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}}).on('response', function(response) {
-         console.log(response.statusCode) // 200
+         console.log(response.statusCode)
          console.log(response.headers['content-type'])
       });
 

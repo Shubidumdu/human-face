@@ -34,6 +34,12 @@ function Form({
       @media (max-width: 820px) {
         width: 97%;
       }
+
+      @media (max-width: 425px) {
+        margin-top: 0;
+        height: 98vh;
+        width: 100%;
+      }
     `;
 
     const TitleImg = styled.img`
