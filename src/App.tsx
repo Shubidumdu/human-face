@@ -1,9 +1,9 @@
 import React from 'react';
 import FormContainer from './containers/FormContainer';
 import ResultContainer from './containers/ResultContainer';
-import reset from "styled-reset";
+import reset from 'styled-reset';
 import logo from './components/imgs/title-medium2.png';
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import styled, { theme } from './components/theme';
 import { useSelector } from 'react-redux';
 import { RootState } from './modules';
@@ -12,10 +12,7 @@ import AlertProvider from './AlertProvider';
 import ModalProvider from './ModalProvider';
 
 const App: React.FC = () => {
-
   const GlobalStyle = createGlobalStyle`
-    ${reset};
-
     a{
         text-decoration:none;
         color:inherit;
@@ -44,12 +41,12 @@ const App: React.FC = () => {
     @media (max-width: 426px) {
       display: none;
     }
-  `
+  `;
 
   const HeaderLogo = styled.img`
     height: 80%;
     width: auto;
-  `
+  `;
 
   const App = styled.div`
     display: flex;
@@ -62,7 +59,7 @@ const App: React.FC = () => {
       margin: 0.5rem;
       padding: 0;
     }
-  `
+  `;
   const clovaData = useSelector((state: RootState) => state.clova.data);
   const Error = useSelector((state: RootState) => state.clova.error);
   const isLoading = useSelector((state: RootState) => state.clova.loading);
@@ -75,20 +72,18 @@ const App: React.FC = () => {
           <Header>
             <HeaderLogo src={logo} />
           </Header>
-          <Spinner isLoading={isLoading}/>
+          <Spinner isLoading={isLoading} />
           <App className="App">
-            {
-              clovaData.imageInfo.faceCount === -1 
-              && !Error
-              ? 
-                <FormContainer />  :
-                <ResultContainer clovaData={clovaData}/>
-            }
+            {clovaData.imageInfo.faceCount === -1 && !Error ? (
+              <FormContainer />
+            ) : (
+              <ResultContainer clovaData={clovaData} />
+            )}
           </App>
         </AlertProvider>
       </ModalProvider>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
