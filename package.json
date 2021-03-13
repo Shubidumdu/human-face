@@ -96,8 +96,7 @@
     "start": "node server/server.js",
     "build": "node scripts/build.js",
     "client": "node scripts/start.js",
-    "server": "nodemon server/server.js",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "server": "nodemon server/server.js"
   },
   "heroku-run-build-script": true,
   "eslintConfig": {

@@ -1,7 +1,6 @@
 import React from 'react';
 import FormContainer from './containers/FormContainer';
 import ResultContainer from './containers/ResultContainer';
-import reset from 'styled-reset';
 import logo from './components/imgs/title-medium2.png';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import styled, { theme } from './components/theme';
@@ -12,22 +11,6 @@ import AlertProvider from './AlertProvider';
 import ModalProvider from './ModalProvider';
 
 const App: React.FC = () => {
-  const GlobalStyle = createGlobalStyle`
-    a{
-        text-decoration:none;
-        color:inherit;
-    }
-    *{
-        box-sizing:border-box;
-    }
-    body{
-        font-family: YangJin, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        font-size: 16px;
-
-        background-color: #F2E3B3;
-    }
-  `;
-
   const Header = styled.header`
     background-color: ${props => props.theme.color.darkbrown};
     width: 100%;
