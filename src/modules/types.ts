@@ -1,21 +1,13 @@
-export type AppState = {
+export interface AppState {
   loading: boolean;
-  error?: Error | null;
-  modalOpen: boolean;
-  imageURL: string;
-  formData: FormData;
-  result: Result;
-};
+  error: Error | null;
+  imageURL: string | null;
+  formData: FormData | null;
+  result: Result | null;
+}
 
 export interface Result {
-  imageInfo: {
-    url: string;
-    size: {
-      width: number;
-      height: number;
-    };
-    faceCount: number;
-  };
+  faceCount: number;
   celebrity: Score;
   gender: Score;
   age: Score;
