@@ -1,3 +1,4 @@
+const FormData = require('form-data');
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
@@ -28,52 +29,51 @@ app.post('/api/celeb', upload.single('image'), async (req, res) => {
     const API_URL = API_BASE_URL + '/celebrity';
     const { path } = req.file;
 
-    // 현재 자꾸 404 에러가 뜸
-    const formData = {
-      image: fs.createReadStream(path),
-    };
+    const formData = new FormData();
+    formData.append('image', fs.createReadStream(path));
 
     const response = await axios.post(API_URL, formData, {
       headers: {
+        ...formData.getHeaders(),
         'X-Naver-Client-Id': CLIENT_ID,
         'X-Naver-Client-Secret': CLIENT_SECRET,
       },
     });
 
-    res.status(200).send(response.data);
-
     fs.unlink(path, err => {
       if (err) throw err;
     });
 
-    return;
+    return res.status(200).send(response.data);
   } catch (err) {
     console.log(err);
   }
 });
 
 app.post('/api/face', upload.single('image'), async (req, res) => {
-  const API_URL = API_BASE_URL + '/face';
-  const { path } = req.file;
+  try {
+    const API_URL = API_BASE_URL + '/face';
+    const { path } = req.file;
 
-  const formData = {
-    image: req.file,
-  };
+    const formData = new FormData();
+    formData.append('image', fs.createReadStream(path));
 
-  const response = await axios.post(API_URL, formData, {
-    headers: {
-      'X-Naver-Client-Id': CLIENT_ID,
-      'X-Naver-Client-Secret': CLIENT_SECRET,
-    },
-  });
+    const response = await axios.post(API_URL, formData, {
+      headers: {
+        ...formData.getHeaders(),
+        'X-Naver-Client-Id': CLIENT_ID,
+        'X-Naver-Client-Secret': CLIENT_SECRET,
+      },
+    });
 
-  res.status(200).send(response.data);
+    fs.unlink(path, err => {
+      if (err) throw err;
+    });
 
-  fs.unlink(path, err => {
-    if (err) throw err;
-  });
-
-  return;
+    return res.status(200).send(response.data);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {
