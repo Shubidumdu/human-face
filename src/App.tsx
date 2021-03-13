@@ -2,13 +2,11 @@ import React from 'react';
 import FormContainer from './containers/FormContainer';
 import ResultContainer from './containers/ResultContainer';
 import logo from './components/imgs/title-medium2.png';
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import styled, { theme } from './components/theme';
+import styled from './components/theme';
 import { useSelector } from 'react-redux';
 import { RootState } from './modules';
 import Spinner from './components/Spinner';
-import AlertProvider from './AlertProvider';
-import ModalProvider from './ModalProvider';
+import Provider from './provider';
 
 const App: React.FC = () => {
   const Header = styled.header`
@@ -48,24 +46,19 @@ const App: React.FC = () => {
   const isLoading = useSelector((state: RootState) => state.clova.loading);
 
   return (
-    <ThemeProvider theme={theme}>
-      <ModalProvider>
-        <AlertProvider>
-          <GlobalStyle />
-          <Header>
-            <HeaderLogo src={logo} />
-          </Header>
-          <Spinner isLoading={isLoading} />
-          <App className="App">
-            {clovaData.imageInfo.faceCount === -1 && !Error ? (
-              <FormContainer />
-            ) : (
-              <ResultContainer clovaData={clovaData} />
-            )}
-          </App>
-        </AlertProvider>
-      </ModalProvider>
-    </ThemeProvider>
+    <Provider>
+      <Header>
+        <HeaderLogo src={logo} />
+      </Header>
+      <Spinner isLoading={isLoading} />
+      <App className="App">
+        {clovaData.imageInfo.faceCount === -1 && !Error ? (
+          <FormContainer />
+        ) : (
+          <ResultContainer clovaData={clovaData} />
+        )}
+      </App>
+    </Provider>
   );
 };
 

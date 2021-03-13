@@ -1,29 +1,30 @@
-import React from 'react';
-import { transitions, positions, Provider } from 'react-alert';
-import styled from '../components/theme';
+import React, { ComponentType } from 'react';
+import {
+  transitions,
+  positions,
+  Provider,
+  AlertComponentPropsWithStyle,
+} from 'react-alert';
+import styled from 'styled-components';
 
-const AlertTemplate = ({ options, message, close }: any) => {
-  const StyledAlert = styled.div`
-    background: ${props => props.theme.color.red};
-    color: ${props => props.theme.color.ivory};
-    width: 25rem;
+const StyledAlert = styled.div`
+  background: ${props => props.theme.color.red};
+  color: ${props => props.theme.color.ivory};
+  width: 25rem;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border: 2px solid ${({ theme }) => theme.color.black};
+  border-radius: 1rem;
+
+  @media (max-width: 850px) {
+    width: 18rem;
     height: 6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    border: 2px solid black;
-    border-radius: 1rem;
-
-    @media (max-width: 850px) {
-      width: 18rem;
-      height: 6rem;
-      font-size: 1.5rem;
-    }
-  `;
-
-  return <StyledAlert>{message}</StyledAlert>;
-};
+    font-size: 1.5rem;
+  }
+`;
 
 const options = {
   position: positions.MIDDLE,
@@ -32,11 +33,13 @@ const options = {
   transition: transitions.SCALE,
 };
 
-type ProviderProps = {
-  children: React.ReactNode;
+const AlertTemplate: ComponentType<AlertComponentPropsWithStyle> = ({
+  message,
+}) => {
+  return <StyledAlert>{message}</StyledAlert>;
 };
 
-const AlertProvider = ({ children }: ProviderProps) => {
+const AlertProvider: React.FC = ({ children }) => {
   return (
     <Provider template={AlertTemplate} {...options}>
       {children}

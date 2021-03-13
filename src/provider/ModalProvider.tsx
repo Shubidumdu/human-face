@@ -12,11 +12,7 @@ const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.75);
 `;
 
-type ProviderProps = {
-  children: React.ReactNode;
-};
-
-const ModalProvider = ({ children }: ProviderProps) => {
+const ModalProvider: React.FC = ({ children }) => {
   return <Provider backgroundComponent={ModalBackground}>{children}</Provider>;
 };
 

@@ -1,10 +1,14 @@
 import {
-  ThemeProvider as Provider,
+  ThemeProvider,
   createGlobalStyle,
+  DefaultTheme,
 } from 'styled-components';
+import React from 'react';
+import { Reset } from 'styled-reset';
 
-export const theme: Theme = {
+export const theme: DefaultTheme = {
   color: {
+    black: '#000000',
     red: '#F24C27',
     yellow: '#F2B807',
     green: '#6BBFB0',
@@ -15,23 +19,30 @@ export const theme: Theme = {
 };
 
 const GlobalStyle = createGlobalStyle`
-a{
+  a {
     text-decoration:none;
     color:inherit;
-}
-*{
+  }
+
+  * {
     box-sizing:border-box;
-}
-body{
+  }
+
+  body{
     font-family: YangJin, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
-
-    background-color: #F2E3B3;
-}
+    background-color: ${({ theme }) => theme.color.beige};
+  }
 `;
 
-const ThemeProvider: React.FC = () => {
-  return;
+const StyleProvider: React.FC = ({ children }) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Reset />
+      <GlobalStyle />
+      {children}
+    </ThemeProvider>
+  );
 };
 
-export default ThemeProvider;
+export default StyleProvider;
