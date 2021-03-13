@@ -1,34 +1,13 @@
 import React from 'react';
 import FormContainer from './containers/FormContainer';
 import ResultContainer from './containers/ResultContainer';
-import logo from './components/imgs/title-medium2.png';
 import styled from './components/theme';
 import { useSelector } from 'react-redux';
-import { RootState } from './modules';
 import Spinner from './components/Spinner';
 import Provider from './provider';
+import Header from './components/Header';
 
 const App: React.FC = () => {
-  const Header = styled.header`
-    background-color: ${props => props.theme.color.darkbrown};
-    width: 100%;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px #000000;
-    position: fixed;
-
-    @media (max-width: 426px) {
-      display: none;
-    }
-  `;
-
-  const HeaderLogo = styled.img`
-    height: 80%;
-    width: auto;
-  `;
-
   const App = styled.div`
     display: flex;
     justify-content: center;
@@ -47,9 +26,7 @@ const App: React.FC = () => {
 
   return (
     <Provider>
-      <Header>
-        <HeaderLogo src={logo} />
-      </Header>
+      <Header />
       <Spinner isLoading={isLoading} />
       <App className="App">
         {clovaData.imageInfo.faceCount === -1 && !Error ? (

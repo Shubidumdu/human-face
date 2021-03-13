@@ -2,9 +2,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import Thunk from 'redux-thunk';
-import rootReducer from '../modules';
+import reducer from '../modules/reducer';
 
-const store = createStore(rootReducer, applyMiddleware(Thunk));
+const store = createStore(reducer, applyMiddleware(Thunk));
 
 const ReduxProvider: React.FC = ({ children }) => {
   return <Provider store={store}>{children}</Provider>;
