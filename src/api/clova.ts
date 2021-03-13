@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Celebrity, Face, Info } from '../modules/type';
+import { Celebrity, Face, Info } from '../modules/types';
 
 export interface CelebrityResult {
   info: Info;

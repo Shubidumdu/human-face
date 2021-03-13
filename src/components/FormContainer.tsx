@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getResultThunk } from '../modules/clova';
 import Form from '../components/Form';
 import CropModalContainer from './CropModalContainer';
 import { useAlert } from 'react-alert';

@@ -8,6 +8,8 @@ import { Reset } from 'styled-reset';
 
 export const theme: DefaultTheme = {
   color: {
+    white: '#FFFFFF',
+    grey: '#cccccc',
     black: '#000000',
     red: '#F24C27',
     yellow: '#F2B807',
