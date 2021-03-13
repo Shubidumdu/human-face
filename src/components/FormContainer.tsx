@@ -1,51 +1,38 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../components/Form';
 import CropModalContainer from './CropModalContainer';
 import { useAlert } from 'react-alert';
+import { AppState } from '../modules/types';
+import { getResultThunk } from '../modules/action';
 
 function FormContainer() {
   const dispatch = useDispatch();
   const alert = useAlert();
+  const imageURL = useSelector((state: AppState) => state.imageURL) || '';
+  const formData = useSelector((state: AppState) => state.formData);
+  const [isOpen, setModalOpen] = useState(false);
 
-  const [imageBlob, setImageBlob] = useState<Blob>();
-  const [imageUrl, setImageUrl] = useState('');
-
-  const onSubmit = (e: any) => {
-    if (!imageUrl) {
+  const onSubmit = () => {
+    if (!formData) {
       alert.show('사진을 첨부하여 주십시오.');
       return;
     }
-
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('image', imageBlob!);
-
-    dispatch(getResultThunk(formData, imageUrl));
+    dispatch(getResultThunk(formData));
   };
 
-  const [isOpen, setModalOpen] = useState(false);
-
-  const openModal = (e: any) => {
-    e.preventDefault();
+  const openModal = () => {
     setModalOpen(true);
   };
 
-  const closeModal = (e: any) => {
-    e.preventDefault();
+  const closeModal = () => {
     setModalOpen(false);
   };
 
   return (
     <>
-      <Form imageUrl={imageUrl} onSubmit={onSubmit} onOpen={openModal} />
-      <CropModalContainer
-        isOpen={isOpen}
-        onClose={closeModal}
-        setImageUrl={setImageUrl}
-        setImageBlob={setImageBlob}
-      />
+      <Form imageURL={imageURL} onSubmit={onSubmit} onOpen={openModal} />
+      <CropModalContainer isOpen={isOpen} onClose={closeModal} />
     </>
   );
 }
