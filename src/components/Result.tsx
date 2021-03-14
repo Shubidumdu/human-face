@@ -305,7 +305,7 @@ const Result: React.FC<ResultProps> = ({
       <ResultWrap>
         <ContentWrap>
           <ResultHead>분석 결과</ResultHead>
-          <FaceImg src={imageURL} alt="faceImg" />
+          <FaceImg src={imageURL || undefined} alt="faceImg" />
           <DescWrap>
             <DescHeader>정확도</DescHeader>
             <DescItem

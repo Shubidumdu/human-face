@@ -1,7 +1,9 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import styled, { DefaultTheme, useTheme } from 'styled-components';
+import { useSelector } from 'react-redux';
+import styled, { useTheme } from 'styled-components';
+import { AppState } from '../modules/types';
 
 const SpinnerWrap = styled.div`
   width: 100%;
@@ -14,12 +16,9 @@ const SpinnerWrap = styled.div`
   align-items: center;
 `;
 
-type SpinnerProps = {
-  isLoading: boolean;
-};
-
-const Spinner: React.FC<SpinnerProps> = ({ isLoading }) => {
+const Spinner: React.FC = () => {
   const theme = useTheme();
+  const isLoading = useSelector((state: AppState) => state.loading);
 
   if (isLoading)
     return (

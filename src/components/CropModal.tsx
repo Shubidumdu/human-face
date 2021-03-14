@@ -54,7 +54,7 @@ const BeforeCrop = styled.div`
   display: flex;
   width: 52rem;
   height: 30rem;
-  background: ${props => props.theme.color.darkbrown};
+  background: ${(props) => props.theme.color.darkbrown};
   color: ${({ theme }) => theme.color.white};
   border: 2px solid ${({ theme }) => theme.color.black};
   font-size: 3rem;
@@ -114,6 +114,7 @@ type ModalProps = {
   ) => void;
   onFileChange: React.ChangeEventHandler<HTMLInputElement>;
   onConfirm: React.MouseEventHandler<HTMLButtonElement>;
+  onImageLoaded: (target: HTMLImageElement) => void;
 };
 
 function CropModal({
@@ -124,6 +125,7 @@ function CropModal({
   onConfirm,
   onCropChange,
   onFileChange,
+  onImageLoaded,
 }: ModalProps) {
   return (
     <StyledModal
@@ -138,7 +140,12 @@ function CropModal({
       </ModalHeaderWrap>
       {originImgSrc ? (
         <CropWrapper>
-          <ReactCrop src={originImgSrc} onChange={onCropChange} crop={crop} />
+          <ReactCrop
+            src={originImgSrc}
+            onChange={onCropChange}
+            crop={crop}
+            onImageLoaded={onImageLoaded}
+          />
         </CropWrapper>
       ) : (
         <BeforeCrop>이미지 파일을 불러와주세요.</BeforeCrop>

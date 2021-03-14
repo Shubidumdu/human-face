@@ -1,6 +1,6 @@
 import React from 'react';
-import facesample2 from './imgs/facesample2.png';
-import titleImg from './imgs/title-medium2.png';
+import facesample2 from '../imgs/facesample2.png';
+import titleImg from '../imgs/title-medium2.png';
 import { TiAttachmentOutline } from 'react-icons/ti';
 import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
