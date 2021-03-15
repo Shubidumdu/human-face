@@ -99,11 +99,15 @@ const ButtonWrapper = styled.div`
   width: 100%;
   height: 7rem;
   position: relative;
+  align-items: center;
   justify-content: center;
+
+  > button + button {
+    margin-left: 1rem;
+  }
 
   @media (max-width: 426px) {
     height: 50%;
-    align-items: center;
   }
 `;
 
