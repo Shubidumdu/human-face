@@ -1,78 +1,85 @@
+const FormData = require('form-data');
 const express = require('express');
 const path = require('path');
-const request = require('request');
+const axios = require('axios');
 const multer = require('multer');
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
-var fs = require('fs');
+require('dotenv').config();
 
+const API_BASE_URL = 'https://openapi.naver.com/v1/vision';
 const app = express();
 const PORT = process.env.PORT || 4000;
-
-const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_SECRET;
-
-if(process.env.NODE_ENV === 'production') app.use(express.static(path.join(__dirname, '..', 'build/')));
-else app.use(express.static(path.join(__dirname, '..', 'public/')));
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 const upload = multer({
-    storage: multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-      },
-      filename: function (req, file, cb) {
-        cb(null, new Date().valueOf() + path.extname(file.originalname));
-      }
-    }),
-  });
+  storage: multer.diskStorage({
+    destination: 'uploads/',
+    filename: function (req, file, callback) {
+      const fileType = file.mimetype.split('/')[1];
+      callback(null, `${uuidv4()}.${fileType}`);
+    },
+  }),
+});
 
 app.post('/api/celeb', upload.single('image'), async (req, res) => {
+  try {
+    const API_URL = API_BASE_URL + '/celebrity';
+    const { path } = req.file;
 
-    const api_url = 'https://openapi.naver.com/v1/vision/celebrity';
+    const formData = new FormData();
+    formData.append('image', fs.createReadStream(path));
 
-    const file_name = req.file.filename;
-    const file_path = path.resolve('../app/uploads/' + file_name);
-
-    var _formData = {
-        image:'image',
-        image: fs.createReadStream(file_path)
-      };
-    
-    var _req = await request.post({url:api_url, formData: _formData,
-        headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}}).on('response', function(response) {
-         console.log(response.statusCode)
-         console.log(response.headers['content-type'])
-      });
-
-    fs.unlink(file_path, function() {
-    });
-    console.log( request.head  );
-    _req.pipe(res);
-})
-
-app.post('/api/face', upload.single('image'), async(req, res) => {
-
-  const api_url = 'https://openapi.naver.com/v1/vision/face';
-
-  const file_name = req.file.filename;
-  const file_path = path.resolve('../app/uploads/' + file_name);
-
-  var _formData = {
-      image:'image',
-      image: fs.createReadStream(file_path)
-    };
-  
-  var _req = await request.post({url:api_url, formData: _formData,
-      headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}}).on('response', function(response) {
-       console.log(response.statusCode) // 200
-       console.log(response.headers['content-type'])
+    const response = await axios.post(API_URL, formData, {
+      headers: {
+        ...formData.getHeaders(),
+        'X-Naver-Client-Id': CLIENT_ID,
+        'X-Naver-Client-Secret': CLIENT_SECRET,
+      },
     });
 
-  console.log( request.head  );
-  fs.unlink(file_path, function() {
-  });
-  _req.pipe(res);
-})
+    fs.unlink(path, (err) => {
+      if (err) throw err;
+    });
+
+    return res.status(200).send(response.data);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/api/face', upload.single('image'), async (req, res) => {
+  try {
+    const API_URL = API_BASE_URL + '/face';
+    const { path } = req.file;
+
+    const formData = new FormData();
+    formData.append('image', fs.createReadStream(path));
+
+    const response = await axios.post(API_URL, formData, {
+      headers: {
+        ...formData.getHeaders(),
+        'X-Naver-Client-Id': CLIENT_ID,
+        'X-Naver-Client-Secret': CLIENT_SECRET,
+      },
+    });
+
+    fs.unlink(path, (err) => {
+      if (err) throw err;
+    });
+
+    return res.status(200).send(response.data);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '..', 'build/')));
+}
 
 app.listen(PORT, () => {
-console.log(`Check out the app at http://localhost:${PORT}`);
+  console.log(`App listening on http://localhost:${PORT}`);
 });
