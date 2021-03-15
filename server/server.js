@@ -17,7 +17,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const upload = multer({
   storage: multer.diskStorage({
     destination: 'uploads/',
-    filename: function(req, file, callback) {
+    filename: function (req, file, callback) {
       const fileType = file.mimetype.split('/')[1];
       callback(null, `${uuidv4()}.${fileType}`);
     },
@@ -40,7 +40,7 @@ app.post('/api/celeb', upload.single('image'), async (req, res) => {
       },
     });
 
-    fs.unlink(path, err => {
+    fs.unlink(path, (err) => {
       if (err) throw err;
     });
 
@@ -66,7 +66,7 @@ app.post('/api/face', upload.single('image'), async (req, res) => {
       },
     });
 
-    fs.unlink(path, err => {
+    fs.unlink(path, (err) => {
       if (err) throw err;
     });
 
@@ -81,5 +81,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(PORT, () => {
-  console.log(`Check out the app at http://localhost:${PORT}`);
+  console.log(`App listening on http://localhost:${PORT}`);
 });
