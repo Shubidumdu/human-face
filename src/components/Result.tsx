@@ -5,7 +5,7 @@ import { darken, lighten } from 'polished';
 import { IoMdPeople } from 'react-icons/io';
 import { ResultInfo } from './ResultContainer';
 
-const WindowWrap = styled.div`
+const WindowWrap = styled.section`
   display: flex;
   flex-direction: column;
 
@@ -18,7 +18,7 @@ const WindowWrap = styled.div`
   }
 `;
 
-const ResultWrap = styled.div`
+const ResultWrap = styled.section`
   background-color: ${({ theme }) => theme.color.ivory};
   width: 52rem;
   box-shadow: 4px 4px 4px ${({ theme }) => theme.color.grey};
@@ -41,7 +41,7 @@ const ResultWrap = styled.div`
   }
 `;
 
-const ResultHead = styled.h1`
+const ResultHead = styled.header`
   font-size: 1.5rem;
   margin-top: 1.5rem;
   display: none;
@@ -60,7 +60,7 @@ const ResultHead = styled.h1`
   }
 `;
 
-const ContentWrap = styled.div`
+const ContentWrap = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
@@ -72,7 +72,7 @@ const ContentWrap = styled.div`
   }
 `;
 
-const ErrorWrap = styled.div`
+const ErrorWrap = styled.section`
   font-size: 1.5rem;
   display: flex;
   justify-content: center;
@@ -106,7 +106,7 @@ const FaceImg = styled.img`
   }
 `;
 
-const DescWrap = styled.div`
+const DescWrap = styled.main`
   display: flex;
   width: 100%;
   justify-content: space-evenly;
@@ -122,7 +122,7 @@ const DescWrap = styled.div`
   }
 `;
 
-const DescHeader = styled.div`
+const DescHeader = styled.header`
   width: 33%;
   text-align: center;
   align-self: flex-end;
@@ -133,7 +133,7 @@ const DescHeader = styled.div`
   }
 `;
 
-const DescContent = styled.div`
+const DescContent = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: baseline;
@@ -285,15 +285,24 @@ const Result: React.FC<ResultProps> = ({
 }) => {
   const theme = useTheme();
   const { gender, celebrity, age, emotion } = resultInfo;
-  if (faceCount > 1 || error)
+  console.log(faceCount);
+  console.log(error);
+  if (faceCount > 1)
     return (
       <WindowWrap>
         <ResultWrap>
-          {faceCount > 1 ? (
-            <ResultError type="faceCount" />
-          ) : (
-            <ResultError type="default" />
-          )}
+          <ResultError type="faceCount" />
+        </ResultWrap>
+        <ResetButton onClick={onReset}>
+          <MdRefresh size="4rem" color={theme.color.darkbrown} />
+        </ResetButton>
+      </WindowWrap>
+    );
+  if (faceCount === 0)
+    return (
+      <WindowWrap>
+        <ResultWrap>
+          <ResultError type="default" />
         </ResultWrap>
         <ResetButton onClick={onReset}>
           <MdRefresh size="4rem" color={theme.color.darkbrown} />

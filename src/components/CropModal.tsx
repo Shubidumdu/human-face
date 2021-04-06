@@ -42,7 +42,7 @@ const StyledModal = Modal.styled`
     }
   `;
 
-const CropWrapper = styled.div`
+const CropWrapper = styled.main`
   background: ${({ theme }) => theme.color.black};
   display: flex;
   border: 2px solid ${({ theme }) => theme.color.black};
@@ -50,7 +50,7 @@ const CropWrapper = styled.div`
   justify-content: center;
 `;
 
-const BeforeCrop = styled.div`
+const BeforeCrop = styled.main`
   display: flex;
   width: 52rem;
   height: 30rem;
@@ -68,7 +68,7 @@ const BeforeCrop = styled.div`
   }
 `;
 
-const ModalHeaderWrap = styled.div`
+const ModalHeaderWrap = styled.header`
   width: 100%;
   height: 4rem;
   display: flex;
@@ -80,7 +80,7 @@ const ModalHeaderWrap = styled.div`
   }
 `;
 
-const ModalTailWrap = styled.div`
+const ModalTailWrap = styled.footer`
   width: 100%;
   height: 4rem;
   display: flex;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Result from '../components/Result';
+import Result from './Result';
 import { resetResult } from '../modules/action';
 import { AppState, Score } from '../modules/types';
 

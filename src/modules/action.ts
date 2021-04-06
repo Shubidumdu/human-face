@@ -48,7 +48,7 @@ export const resetResult = () => ({
 export function getResultThunk(
   formData: FormData,
 ): ThunkAction<void, AppState, null, Action> {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       dispatch(getResult());
       const celebResult = await fetchCelebInfo(formData);

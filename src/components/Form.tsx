@@ -6,7 +6,7 @@ import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
 import Button from './Button';
 
-const FormWrap = styled.div`
+const FormWrap = styled.section`
   background-color: ${({ theme }) => theme.color.ivory};
   width: 52rem;
   box-shadow: 4px 4px 4px ${({ theme }) => theme.color.grey};
@@ -29,7 +29,7 @@ const FormWrap = styled.div`
   }
 `;
 
-const TitleWrap = styled.div`
+const TitleWrap = styled.header`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -93,7 +93,7 @@ const Desc = styled.h6`
   }
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.footer`
   display: flex;
   flex-direction: row;
   width: 100%;

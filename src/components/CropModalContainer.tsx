@@ -31,7 +31,6 @@ function getCroppedImg(
   canvas.width = targetWidth;
   canvas.height = targetHeight;
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-  console.log(context);
 
   context.drawImage(
     image,
